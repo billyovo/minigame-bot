@@ -1,0 +1,14 @@
+{
+    "prefix": ".",
+    "annoucementChannelID": "537873205667299329",
+    "survivalID": "690561837703364679",
+    "skyblockID": "690562011720974386",
+    "dbconfig": {
+        "connectionLimit" : 10,
+        "host"     : "192.168.1.185",
+        "user"     : "u24_fpwvmdBHtu",
+        "password" : "=qw8ui7kCvmddr+9Gd4rD!Y+",
+        "port": 3369,
+        "database": "s24_winner"
+    }
+}
