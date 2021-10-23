@@ -13,8 +13,12 @@
     "node-fetch": "^2.6.1"
   },
   "scripts": {
-    "start": "node ."
+    "start": "node .",
+    "lint": "npx eslint --fix **/*.js"
   },
   "author": "billyovo",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^8.1.0"
+  }
 }

@@ -61,14 +61,14 @@ var eventsNearest;
 
 function checkEvents(){
     storedEvents = {
-    	today:{
-       		name: "",
-        	emote: ""
-    	},
-    	tomorrow:{
-       	 	name: "",
-        	emote: ""
-    	}
+        today:{
+            name: "",
+            emote: ""
+        },
+        tomorrow:{
+            name: "",
+            emote: ""
+        }
 	};
      eventsDateMap = {};
      eventsNearest = null;
@@ -80,11 +80,11 @@ function checkEvents(){
 	events.forEach((event)=>{
         let todayUTC = today.startOf("day");
 
-         let fixedRule = 'DTSTART;TZID=Asia/Hong_Kong:'+todayUTC.toFormat('yyyyLLdd')+'T'+todayUTC.toFormat('HHmm00')+'\nRRULE:'+event.rrule;
-    	let eventRule = rrule.rrulestr(fixedRule);
-    	let eventDate = eventRule.after(todayUTC.toJSDate(),true);
+        let fixedRule = 'DTSTART;TZID=Asia/Hong_Kong:'+todayUTC.toFormat('yyyyLLdd')+'T'+todayUTC.toFormat('HHmm00')+'\nRRULE:'+event.rrule;
+        let eventRule = rrule.rrulestr(fixedRule);
+        let eventDate = eventRule.after(todayUTC.toJSDate(),true);
         eventDate = DateTime.fromJSDate(eventDate).set({hours: 21, minutes: 0});
-    	console.log(event.title+"\r\n"+eventDate.toFormat('yyyy-LL-dd')+" 星期"+weekdays[eventDate.weekday-1]+"\r\n");
+        console.log(event.title+"\r\n"+eventDate.toFormat('yyyy-LL-dd')+" 星期"+weekdays[eventDate.weekday-1]+"\r\n");
         eventsDateMap[event.id] = {
             title: event.title,
             date: eventDate,
@@ -98,14 +98,14 @@ function checkEvents(){
                 eventsNearest = eventsDateMap[event.id];
             }
         }
-    	if(today.ordinal === eventDate.ordinal){
-       		storedEvents.today.name = event.title;
-       		storedEvents.today.emote = event.emote;
-    	 }
-    	if(tomorrow.ordinal === eventDate.ordinal){
-       		storedEvents.tomorrow.name = event.title;
-       		storedEvents.tomorrow.emote = event.emote;
-    	 }
+    if(today.ordinal === eventDate.ordinal){
+        storedEvents.today.name = event.title;
+        storedEvents.today.emote = event.emote;
+     }
+    if(tomorrow.ordinal === eventDate.ordinal){
+        storedEvents.tomorrow.name = event.title;
+        storedEvents.tomorrow.emote = event.emote;
+     }
 	})
 	console.log('==================================================================================================================');
 }
@@ -152,20 +152,20 @@ bot.on('messageCreate',async (msg) => {
             //is winner name in database?
             if(winner.length === 0){
                 //if no, fetch his uuid from mojang 
-            	const response = await fetch(`https://api.mojang.com/users/profiles/minecraft/${name}`);
-   				const json = await response.json();
+                const response = await fetch(`https://api.mojang.com/users/profiles/minecraft/${name}`);
+                const json = await response.json();
                 uuid = json.id;
                 if(!response.ok){
                     //oh shit mojang fucked up
                     msg.channel.send('搜尋玩家UUID時發生了錯誤!');
                     console.log('Mojang API: '+response.status+' '+response.statusText);
                 }
-            	else{  
-               		try{
+                else{  
+                    try{
                         //if mojang is ok, insert the uuid and name
-                    	await db.query('INSERT INTO player (name,uuid) VALUES (?,?)',[name,json.id])
-                	}
-                	catch(error){
+                        await db.query('INSERT INTO player (name,uuid) VALUES (?,?)',[name,json.id])
+                    }
+                    catch(error){
                         if(error.errno === 1062){
                             //oh shit stupid player changed name and raised uuid primary key error
                             //update his name by record from mojang.
@@ -173,10 +173,10 @@ bot.on('messageCreate',async (msg) => {
                         }
                         else{
                             msg.channel.send('一個資料庫錯誤發生了!');
-                    		console.error(error);
+                            console.error(error);
                         }     	
-                	}
-            	}
+                    }
+                }
             }
             try{
                 if(!uuid){
@@ -201,7 +201,7 @@ bot.on('messageCreate',async (msg) => {
             let server = serverArgs.includes(params.shift().toLowerCase()) ? "survival" : "skyblock";
             let game = params.length === 0 ? storedEvents.today.name : params.join(' ');
             msg.delete();
-           	try{
+            try{
                 //is draw~
                 await db.query(`INSERT INTO ${server} (event,player,date) VALUES (?,?,NOW());`,[game,"draw_result"]);
              }
@@ -256,7 +256,7 @@ bot.on('messageCreate',async (msg) => {
                 msg.channel.send('Mojang API is dead! Try again later!');
             }
             else{
-            	db.query('INSERT INTO player (name,uuid) VALUES (?,?)',[json.name,json.id])
+                db.query('INSERT INTO player (name,uuid) VALUES (?,?)',[json.name,json.id])
                 .then(()=>{
                     msg.channel.send('**Success!**\r\n'+json.name+" uuid is: "+json.id);
                 })
@@ -267,10 +267,11 @@ bot.on('messageCreate',async (msg) => {
                     }
                     else{
                         console.error(error);
-                    	msg.channel.send('DB error occured!');
+                        msg.channel.send('DB error occured!');
                     }     
                 })
             }
+            break;
         }
         case 'sql':{
             params.shift();
@@ -308,7 +309,7 @@ bot.on('interactionCreate', async (interaction) => {
                 return;
             }
         
-        	let query = (interaction.options.get("server").value != "all") ? `SELECT name, event, date FROM ${interaction.options.get("server").value} INNER JOIN player ON player = player.uuid LIMIT 10 OFFSET ?`: 
+            let query = (interaction.options.get("server").value != "all") ? `SELECT name, event, date FROM ${interaction.options.get("server").value} INNER JOIN player ON player = player.uuid LIMIT 10 OFFSET ?`: 
 `SELECT name, event, date FROM (SELECT * FROM survival UNION ALL SELECT * FROM skyblock) temp INNER JOIN player ON temp.player = player.uuid LIMIT 10 OFFSET ?;`;
              db.query(query,[offset])
             .then((data)=>{
@@ -338,14 +339,14 @@ bot.on('interactionCreate', async (interaction) => {
             const query = `SELECT player.name, a.event FROM (SELECT *, ROW_NUMBER() OVER (PARTITION BY event ORDER BY date DESC) AS rowNumber FROM ??) a INNER JOIN player ON a.player = player.uuid WHERE rowNumber = 1`;
             let formatReply = (interaction.options.get("server").value === "survival" ? "生存" : "空島")+"服 禁賽名單";
             let embed = new MessageEmbed()
-        					.setColor('#ee831b')
+                            .setColor('#ee831b')
 							.setTitle(formatReply);
             db.query(query,[interaction.options.get("server").value])
             .then((data)=>{          	
                 data.forEach((record)=>{
                     embed.addFields(
 						{ name: getEmoteByName(record.event) +" "+record.event, value: record.name},
-        			);
+                    );
                 })
                 interaction.reply({embeds: [embed]});
             })

@@ -5,7 +5,7 @@ var pool = mysql.createPool(config.dbconfig);
 
 module.exports= {
     connect: function(){
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
             pool.on('connection', function (connection) {
               connection.on('error', function (err) {
                 console.error(err);
@@ -17,7 +17,7 @@ module.exports= {
 
     query: function(query,params = []){
         return new Promise((resolve, reject)=>{
-        pool.query(query,params, function (error, results, fields) {
+        pool.query(query,params, function (error, results) {
             if (error) reject(error);
             resolve(results);
           });
