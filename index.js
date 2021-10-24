@@ -9,40 +9,11 @@ const {Permissions, MessageEmbed} = require('discord.js');
 let {bot, annoucementChannel} = require("./discord/init.js");
 
 const fetch = require('node-fetch');
-//var CronJob = require('cron').CronJob;
+
 let {eventSchedule, updateSchedule} = require("./utility/checkEvents");
  
 const prefix = config.prefix;
 const serverArgs = ['survival','sur','生存'];
-
-/*
-var tomorrowMessage = new CronJob('0 17 * * *', function() {
-    if(!storedEvents.tomorrow.name){return;}
-	annoucementChannel.send({content: `<@&${config.skyblockID}> <@&${config.survivalID}>`, embeds: [eventMessages.eventTomorrow(storedEvents.tomorrow.emote,storedEvents.tomorrow.name,bot.user.avatarURL())]});
-}, null, true, 'Asia/Taipei');
-tomorrowMessage.start();
-
-
-var todayMessageSkyblock = new CronJob('40 20 * * *', function() {
-    if(!storedEvents.today.name){return;}
-	annoucementChannel.send(eventMessages.eventStart(storedEvents.today.emote,storedEvents.today.name,"21:00",config.skyblockID));
-}, null, true, 'Asia/Taipei');
-todayMessageSkyblock.start();
-
-var todayMessageSurvival = new CronJob('40 21 * * *', function() {
-    if(!storedEvents.today.name){return;}
-	annoucementChannel.send(eventMessages.eventStart(storedEvents.today.emote,storedEvents.today.name,"22:00",config.survivalID));
-}, null, true, 'Asia/Taipei');
-todayMessageSurvival.start();
-
-var scheduleCheckEvent = new CronJob('1 0 * * *', function() {
-    checkEvents();
-    console.log("Today's event:    "+ (storedEvents.today.name|| 'none'));
-    console.log("Tomorrow's event: "+ (storedEvents.tomorrow.name|| 'none'));
-    bot.user.setActivity(storedEvents.today.name? `是日小遊戲: ${storedEvents.today.name}` : '今天沒有小遊戲的悲嗚', { type: storedEvents.today.name? 'PLAYING':'LISTENING'});  
-}, null, true, 'Asia/Taipei');
-scheduleCheckEvent.start();
-*/
 
 updateSchedule();
 
@@ -129,27 +100,7 @@ bot.on('messageCreate',async (msg) => {
             }
             break;
         }
-    /*
-        case 'list':{
-            let offset = (params[2] ? params[2] : 0) * 10;
-            let query = (params[1] && params[1].toLowerCase() !== 'all')? `SELECT name, event, date FROM ${params[1]} INNER JOIN player ON player = player.uuid LIMIT 10 OFFSET ?`: 
-`SELECT name, event, date FROM (SELECT * FROM survival UNION ALL SELECT * FROM skyblock) temp INNER JOIN player ON temp.player = player.uuid LIMIT 10 OFFSET ?;`;
-             db.query(query,[offset])
-            .then((data)=>{
-                 let result = '';
-                 data.forEach((row)=>{
-                     let dateTemp = new Date(row.date);
-                     result += row.name+' '+row.event+' '+dateTemp.getFullYear()+'-'+(dateTemp.getMonth()+1)+'-'+dateTemp.getDate()+'\r\n';
-                 })
-                 msg.channel.send(result || "page "+params[2]+" is empty!!!");
-             })
-            .catch((error)=>{
-                 msg.channel.send('db error occured! '+error.message);
-                 console.error(error);
-             })
-            break;
-        }  
-        */
+
         case 'players':{
              db.query('SELECT * FROM player')
             .then((data)=>{

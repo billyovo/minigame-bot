@@ -6,7 +6,17 @@ const bot = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MES
 bot.login(process.env.TOKEN);
 let annoucementChannel = null;
 
-console.log(process.env.TOKEN);
+function updateDiscordStatus(){
+    console.log("Today's event:    "+ (Object.prototype.hasOwnProperty.call(eventSchedule, "today") ? eventSchedule[eventSchedule.today].title : "none"));
+    console.log("Tomorrow's event: "+ (Object.prototype.hasOwnProperty.call(eventSchedule, "tomorrow") ? eventSchedule[eventSchedule.tomorrow].title : "none"));
+    if(Object.prototype.hasOwnProperty.call(eventSchedule, "today")){
+        bot.user.setActivity("是日小遊戲: "+ eventSchedule[eventSchedule.today].title, {type: "PLAYING"});
+    }
+    else{
+        bot.user.setActivity("今天沒有小遊戲 :(", {type: "PLAYING"});
+    }
+}
+
 bot.on('ready', async () => {
     annoucementChannel = await bot.channels.fetch(config.annoucementChannelID,true,true);
     
@@ -17,19 +27,13 @@ bot.on('ready', async () => {
     
     console.log("Connected to Discord as: "+bot.user.tag);
     console.log("Found event annoucement channel: "+annoucementChannel.name);
-    console.log("Today's event:    "+ (Object.prototype.hasOwnProperty.call(eventSchedule, "today") ? eventSchedule[eventSchedule.today].title : "none"));
-    console.log("Tomorrow's event: "+ (Object.prototype.hasOwnProperty.call(eventSchedule, "tomorrow") ? eventSchedule[eventSchedule.tomorrow].title : "none"));
     console.log('done!');
 
-    if(Object.prototype.hasOwnProperty.call(eventSchedule, "today")){
-        bot.user.setActivity("是日小遊戲: "+ eventSchedule[eventSchedule.today].title, {type: "PLAYING"});
-    }
-    else{
-        bot.user.setActivity("今天沒有小遊戲 :(", {type: "PLAYING"});
-    }
+    updateDiscordStatus();
 })
 
 module.exports= {
     bot: bot,
-    annoucementChannel: annoucementChannel
+    annoucementChannel: annoucementChannel,
+    updateDiscordStatus: updateDiscordStatus
 }
