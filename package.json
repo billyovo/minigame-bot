@@ -14,7 +14,8 @@
   },
   "scripts": {
     "start": "node .",
-    "lint": "npx eslint --fix **/*.js"
+    "lint": "npx eslint --fix **/*.js",
+    "test": "jest"
   },
   "author": "billyovo",
   "license": "ISC",

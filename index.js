@@ -2,22 +2,20 @@ process.env.TZ = "Asia/Hong_Kong";
 require('dotenv').config({path: './editables/.env'});
 const config = require('./editables/config.json')
 const eventMessages = require('./editables/messages.js')
-const events = require('./editables/event.json')
 var db = require('./Helper/db.js');
 const {getEmoteByName} = require('./Helper/eventHelper.js')
 
 const {Client, Intents, Permissions, MessageEmbed} = require('discord.js');
-const rrule = require('rrule')
 const fetch = require('node-fetch');
-var CronJob = require('cron').CronJob;
-var { DateTime } = require('luxon');
-
+//var CronJob = require('cron').CronJob;
+let {eventSchedule, updateSchedule} = require("./utility/checkEvents");
+ 
 const bot = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES]});
 const prefix = config.prefix;
 const serverArgs = ['survival','sur','生存'];
 
 let annoucementChannel = null;
-
+/*
 var tomorrowMessage = new CronJob('0 17 * * *', function() {
     if(!storedEvents.tomorrow.name){return;}
 	annoucementChannel.send({content: `<@&${config.skyblockID}> <@&${config.survivalID}>`, embeds: [eventMessages.eventTomorrow(storedEvents.tomorrow.emote,storedEvents.tomorrow.name,bot.user.avatarURL())]});
@@ -44,73 +42,10 @@ var scheduleCheckEvent = new CronJob('1 0 * * *', function() {
     bot.user.setActivity(storedEvents.today.name? `是日小遊戲: ${storedEvents.today.name}` : '今天沒有小遊戲的悲嗚', { type: storedEvents.today.name? 'PLAYING':'LISTENING'});  
 }, null, true, 'Asia/Taipei');
 scheduleCheckEvent.start();
+*/
 
-var storedEvents = {
-    today:{
-        name: "",
-        emote: ""
-    },
-    tomorrow:{
-        name: "",
-        emote: ""
-    }
-}
+updateSchedule();
 
-var eventsDateMap = {};
-var eventsNearest;
-
-function checkEvents(){
-    storedEvents = {
-        today:{
-            name: "",
-            emote: ""
-        },
-        tomorrow:{
-            name: "",
-            emote: ""
-        }
-	};
-     eventsDateMap = {};
-     eventsNearest = null;
-
-    let today = DateTime.now();
-    let tomorrow = DateTime.now().plus({days: 1}).startOf("day");
-	console.log('================================================ '+today.toFormat('yyyy-LL-dd')+' ======================================================');
-    const weekdays = ['一','二','三','四','五','六','日'];
-	events.forEach((event)=>{
-        let todayUTC = today.startOf("day");
-
-        let fixedRule = 'DTSTART;TZID=Asia/Hong_Kong:'+todayUTC.toFormat('yyyyLLdd')+'T'+todayUTC.toFormat('HHmm00')+'\nRRULE:'+event.rrule;
-        let eventRule = rrule.rrulestr(fixedRule);
-        let eventDate = eventRule.after(todayUTC.toJSDate(),true);
-        eventDate = DateTime.fromJSDate(eventDate).set({hours: 21, minutes: 0});
-        console.log(event.title+"\r\n"+eventDate.toFormat('yyyy-LL-dd')+" 星期"+weekdays[eventDate.weekday-1]+"\r\n");
-        eventsDateMap[event.id] = {
-            title: event.title,
-            date: eventDate,
-            emote: event.emote
-        }
-        if(!eventsNearest){
-            eventsNearest = eventsDateMap[event.id];
-        }
-        else{
-            if(eventsNearest.date > eventsDateMap[event.id].date){
-                eventsNearest = eventsDateMap[event.id];
-            }
-        }
-    if(today.ordinal === eventDate.ordinal){
-        storedEvents.today.name = event.title;
-        storedEvents.today.emote = event.emote;
-     }
-    if(tomorrow.ordinal === eventDate.ordinal){
-        storedEvents.tomorrow.name = event.title;
-        storedEvents.tomorrow.emote = event.emote;
-     }
-	})
-	console.log('==================================================================================================================');
-}
-
-checkEvents();
 bot.login(process.env.TOKEN);
 bot.on('ready', async () => {
     //annoucementChannel = bot.channels.cache.get(config.annoucementChannelID);
@@ -123,11 +58,16 @@ bot.on('ready', async () => {
     
     console.log("Connected to Discord as: "+bot.user.tag);
     console.log("Found event annoucement channel: "+annoucementChannel.name);
-    console.log("Today's event:    "+ (storedEvents.today.name|| 'none'));
-    console.log("Tomorrow's event: "+ (storedEvents.tomorrow.name|| 'none') + "\r\n");
+    console.log("Today's event:    "+ (Object.prototype.hasOwnProperty.call(eventSchedule, "today") ? eventSchedule[eventSchedule.today].title : "none"));
+    console.log("Tomorrow's event: "+ (Object.prototype.hasOwnProperty.call(eventSchedule, "tomorrow") ? eventSchedule[eventSchedule.tomorrow].title : "none"));
     console.log('done!');
-    bot.user.setActivity(storedEvents.today.name? `是日小遊戲: ${storedEvents.today.name}` : '今天沒有小遊戲的悲嗚', { type: storedEvents.today.name? 'PLAYING':'LISTENING'});
-    //bot.user.setStatus(storedEvents.today.name? 'online' : 'dnd');
+
+    if(Object.prototype.hasOwnProperty.call(eventSchedule, "today")){
+        bot.user.setActivity("是日小遊戲: "+ eventSchedule[eventSchedule.today].title, {type: "PLAYING"});
+    }
+    else{
+        bot.user.setActivity("今天沒有小遊戲 :(", {type: "PLAYING"});
+    }
 })
 
 db.connect().then(() => {
@@ -144,7 +84,7 @@ bot.on('messageCreate',async (msg) => {
             params.shift();
             let server = serverArgs.includes(params.shift().toLowerCase()) ? "survival" : "skyblock";
             let name = params.shift();
-            let game = params.length === 0 ? storedEvents.today.name : params.join(' ');
+            let game = params.length === 0 ? eventSchedule[eventSchedule.today].title : params.join(' ');
             msg.delete();
             let winner = await db.query('SELECT name, UUID FROM player WHERE name = ?',[name]);
             let uuid = winner[0] ? winner[0].UUID : "";
@@ -199,7 +139,7 @@ bot.on('messageCreate',async (msg) => {
         case 'draw':{
             params.shift();
             let server = serverArgs.includes(params.shift().toLowerCase()) ? "survival" : "skyblock";
-            let game = params.length === 0 ? storedEvents.today.name : params.join(' ');
+            let game = params.length === 0 ? eventSchedule[eventSchedule.today].title : params.join(' ');
             msg.delete();
             try{
                 //is draw~
@@ -327,11 +267,12 @@ bot.on('interactionCreate', async (interaction) => {
             break;
         }
         case "nearest":{
-            interaction.reply(eventsNearest.emote+" "+eventsNearest.title+" "+eventsNearest.emote+"\r\n"+`<:cobblestone:833225746020696075> 空島: <t:${parseInt(eventsNearest.date.toSeconds())}:R>`+"\r\n"+`<:grassblock:833226098020057088> 生存: <t:${parseInt(eventsNearest.date.plus({hours: 1}).toSeconds())}:R>`);
+            const nearestEvent = eventSchedule[eventSchedule.nearest];
+            interaction.reply(nearestEvent.emote+" "+nearestEvent.title+" "+nearestEvent.emote+"\r\n"+`<:cobblestone:833225746020696075> 空島: <t:${parseInt(nearestEvent.date.toSeconds())}:R>`+"\r\n"+`<:grassblock:833226098020057088> 生存: <t:${parseInt(nearestEvent.date.plus({hours: 1}).toSeconds())}:R>`);
             break;
         }
         case "time":{
-            const selectedEvent = eventsDateMap[interaction.options.get("name").value];
+            const selectedEvent = eventSchedule[interaction.options.get("name").value];
             interaction.reply(selectedEvent.emote+" "+selectedEvent.title+" "+selectedEvent.emote+"\r\n"+`<:cobblestone:833225746020696075> 空島: <t:${parseInt(selectedEvent.date.toSeconds())}:f>`+"\r\n"+`<:grassblock:833226098020057088> 生存: <t:${parseInt(selectedEvent.date.plus({hours: 1}).toSeconds())}:f>`)
             break;
         }
