@@ -194,7 +194,8 @@ bot.on('interactionCreate', async (interaction) => {
             break;
         }
         case "nearest":{
-            const nearestEvent = getEventSchedule()[getEventSchedule().nearest];
+            const eventSchedule = getEventSchedule();
+            const nearestEvent = eventSchedule[eventSchedule.nearest];
             interaction.reply(nearestEvent.emote+" "+nearestEvent.title+" "+nearestEvent.emote+"\r\n"+`<:cobblestone:833225746020696075> 空島: <t:${parseInt(nearestEvent.date.toSeconds())}:R>`+"\r\n"+`<:grassblock:833226098020057088> 生存: <t:${parseInt(nearestEvent.date.plus({hours: 1}).toSeconds())}:R>`);
             break;
         }
