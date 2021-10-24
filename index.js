@@ -1,20 +1,19 @@
 process.env.TZ = "Asia/Hong_Kong";
-require('dotenv').config({path: './editables/.env'});
 const config = require('./editables/config.json')
 const eventMessages = require('./editables/messages.js')
 var db = require('./Helper/db.js');
 const {getEmoteByName} = require('./Helper/eventHelper.js')
 
-const {Client, Intents, Permissions, MessageEmbed} = require('discord.js');
+const {Permissions, MessageEmbed} = require('discord.js');
+let {bot, annoucementChannel} = require("./discord/init.js");
+
 const fetch = require('node-fetch');
 //var CronJob = require('cron').CronJob;
 let {eventSchedule, updateSchedule} = require("./utility/checkEvents");
  
-const bot = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES]});
 const prefix = config.prefix;
 const serverArgs = ['survival','sur','生存'];
 
-let annoucementChannel = null;
 /*
 var tomorrowMessage = new CronJob('0 17 * * *', function() {
     if(!storedEvents.tomorrow.name){return;}
@@ -45,30 +44,6 @@ scheduleCheckEvent.start();
 */
 
 updateSchedule();
-
-bot.login(process.env.TOKEN);
-bot.on('ready', async () => {
-    //annoucementChannel = bot.channels.cache.get(config.annoucementChannelID);
-    annoucementChannel = await bot.channels.fetch(config.annoucementChannelID,true,true);
-    
-    if(!annoucementChannel){
-        console.error('annoucement channel is not found! Stopping execution.');
-        process.abort();
-    }
-    
-    console.log("Connected to Discord as: "+bot.user.tag);
-    console.log("Found event annoucement channel: "+annoucementChannel.name);
-    console.log("Today's event:    "+ (Object.prototype.hasOwnProperty.call(eventSchedule, "today") ? eventSchedule[eventSchedule.today].title : "none"));
-    console.log("Tomorrow's event: "+ (Object.prototype.hasOwnProperty.call(eventSchedule, "tomorrow") ? eventSchedule[eventSchedule.tomorrow].title : "none"));
-    console.log('done!');
-
-    if(Object.prototype.hasOwnProperty.call(eventSchedule, "today")){
-        bot.user.setActivity("是日小遊戲: "+ eventSchedule[eventSchedule.today].title, {type: "PLAYING"});
-    }
-    else{
-        bot.user.setActivity("今天沒有小遊戲 :(", {type: "PLAYING"});
-    }
-})
 
 db.connect().then(() => {
     console.log('Connected to database');
