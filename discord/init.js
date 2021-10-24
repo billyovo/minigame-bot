@@ -1,4 +1,4 @@
-require('dotenv').config({path: '../editables/.env'});
+
 const config = require('../editables/config.json')
 let {eventSchedule} = require("../utility/checkEvents");
 const {Client, Intents} = require('discord.js');
@@ -6,6 +6,7 @@ const bot = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MES
 bot.login(process.env.TOKEN);
 let annoucementChannel = null;
 
+console.log(process.env.TOKEN);
 bot.on('ready', async () => {
     annoucementChannel = await bot.channels.fetch(config.annoucementChannelID,true,true);
     

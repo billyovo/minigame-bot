@@ -1,4 +1,5 @@
 process.env.TZ = "Asia/Hong_Kong";
+require('dotenv').config({path: './editables/.env'});
 const config = require('./editables/config.json')
 const eventMessages = require('./editables/messages.js')
 var db = require('./Helper/db.js');
