@@ -1,6 +1,6 @@
 const rrule = require('rrule');
 var { DateTime } = require('luxon');
-const events = require('./editables/event.json')
+const events = require('../editables/event.json')
 
 var eventsDateMap = {};
 
