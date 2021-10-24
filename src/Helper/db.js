@@ -1,4 +1,4 @@
-const config = require('../editables/config.json')
+const config = require('../../editables/config.json')
 const mysql = require('mysql');
 
 var pool = mysql.createPool(config.dbconfig);

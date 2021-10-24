@@ -2,15 +2,15 @@ process.env.TZ = "Asia/Hong_Kong";
 require('dotenv').config({path: './editables/.env'});
 const config = require('./editables/config.json')
 const eventMessages = require('./editables/messages.js')
-var db = require('./Helper/db.js');
-const {getEmoteByName} = require('./Helper/eventHelper.js')
+var db = require('./src/Helper/db.js');
+const {getEmoteByName} = require('./src/Helper/eventHelper.js')
 
 const {Permissions, MessageEmbed} = require('discord.js');
-let {bot, getAnnoucementChannel} = require("./discord/init.js");
+let {bot, getAnnoucementChannel} = require("./src/discord/init.js");
 
 const fetch = require('node-fetch');
 
-let {getEventSchedule, updateSchedule} = require("./utility/checkEvents");
+let {getEventSchedule, updateSchedule} = require("./src/utility/checkEvents");
  
 const prefix = config.prefix;
 const serverArgs = ['survival','sur','生存'];
@@ -194,8 +194,7 @@ bot.on('interactionCreate', async (interaction) => {
             break;
         }
         case "nearest":{
-            const eventSchedule = getEventSchedule();
-            const nearestEvent = eventSchedule[eventSchedule.nearest];
+            const nearestEvent = getEventSchedule()[getEventSchedule().nearest];
             interaction.reply(nearestEvent.emote+" "+nearestEvent.title+" "+nearestEvent.emote+"\r\n"+`<:cobblestone:833225746020696075> 空島: <t:${parseInt(nearestEvent.date.toSeconds())}:R>`+"\r\n"+`<:grassblock:833226098020057088> 生存: <t:${parseInt(nearestEvent.date.plus({hours: 1}).toSeconds())}:R>`);
             break;
         }

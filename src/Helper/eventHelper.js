@@ -1,4 +1,4 @@
-const events = require('../editables/event.json');
+const events = require('../../editables/event.json');
 module.exports= {
     getEmoteByName: function(name){
         let result = events.find(event => event.title == name);
