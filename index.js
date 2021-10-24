@@ -3,7 +3,7 @@ require('dotenv').config({path: './editables/.env'});
 const config = require('./editables/config.json')
 const eventMessages = require('./editables/messages.js')
 var db = require('./src/Helper/db.js');
-const {getEmoteByName} = require('./src/Helper/eventHelper.js')
+const {getEmoteByName, serverParamsToDBName, serverParamsToChannelID} = require('./src/Helper/eventHelper.js')
 
 const {Permissions, MessageEmbed} = require('discord.js');
 let {bot, getAnnoucementChannel} = require("./src/discord/init.js");
@@ -13,7 +13,6 @@ const fetch = require('node-fetch');
 let {getEventSchedule, updateSchedule} = require("./src/utility/checkEvents");
  
 const prefix = config.prefix;
-const serverArgs = ['survival','sur','生存'];
 
 updateSchedule();
 
@@ -29,7 +28,7 @@ bot.on('messageCreate',async (msg) => {
     switch(params[0]){
         case 'winner':{
             params.shift();
-            let server = serverArgs.includes(params.shift().toLowerCase()) ? "survival" : "skyblock";
+            let server = serverParamsToDBName(params.shift());
             let name = params.shift();
             let game = params.length === 0 ? getEventSchedule()[getEventSchedule().today].title : params.join(' ');
             msg.delete();
@@ -85,7 +84,7 @@ bot.on('messageCreate',async (msg) => {
         }
         case 'draw':{
             params.shift();
-            let server = serverArgs.includes(params.shift().toLowerCase()) ? "survival" : "skyblock";
+            let server = serverParamsToDBName(params.shift());
             let game = params.length === 0 ? getEventSchedule()[getEventSchedule().today].title : params.join(' ');
             msg.delete();
             try{
@@ -156,7 +155,7 @@ bot.on('messageCreate',async (msg) => {
             break;
         }
          case 'mgtdy':{
-            let server =  serverArgs.includes(params[4].toLowerCase()) ? config.survivalID : config.skyblockID;
+            let server = serverParamsToChannelID(params[4]);
             getAnnoucementChannel().send(eventMessages.eventStart(params[1],params[2],params[3],server));
             break;
         }
