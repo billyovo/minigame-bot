@@ -1,0 +1,24 @@
+{
+  "name": "discord-minigame-bot-api",
+  "version": "1.0.0",
+  "description": "minigame winner api and bot",
+  "main": "index.js",
+  "dependencies": {
+    "discord.js": "^13.1.0",
+    "dotenv": "^8.2.0",
+    "mysql": "2.18.1",
+    "rrule": "2.6.4",
+    "luxon": "^1.26.0",
+    "cron": "^1.8.2",
+    "node-fetch": "^2.6.1"
+  },
+  "scripts": {
+    "start": "node .",
+    "lint": "npx eslint --fix **/*.js"
+  },
+  "author": "billyovo",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^8.1.0"
+  }
+}
