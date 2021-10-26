@@ -2,6 +2,7 @@ process.env.TZ = "Asia/Hong_Kong";
 require('dotenv').config({path: './editables/.env'});
 const config = require('./editables/config.json')
 const eventMessages = require('./editables/messages.js')
+require("./src/cronJobs/jobs.js");
 var db = require('./src/Helper/db.js');
 const {getEmoteByName, serverParamsToDBName, serverParamsToChannelID} = require('./src/Helper/eventHelper.js')
 
