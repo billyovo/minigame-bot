@@ -10,6 +10,6 @@ module.exports= {
         return serverArgs.includes(params.toLowerCase()) ? "survival" : "skyblock";
     },
     serverParamsToChannelID: function(params){
-        serverArgs.includes(params.toLowerCase()) ? config.survivalID : config.skyblockID;
+        return serverArgs.includes(params.toLowerCase()) ? config.survivalID : config.skyblockID;
     }
 }
