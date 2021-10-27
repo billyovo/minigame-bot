@@ -8,7 +8,7 @@ const {updateDiscordStatus} = require("../discord/init.js");
 var tomorrowMessage = new CronJob('0 17 * * *', function() {
     if(!Object.prototype.hasOwnProperty.call(getEventSchedule(), "tomorrow")){return;}
     const tomorrowEvent = getEventSchedule()[getEventSchedule().tomorrow];
-	getAnnoucementChannel().send({content: `<@&${config.skyblockID}> <@&${config.survivalID}>`, embeds: [eventMessages.eventTomorrow(tomorrowEvent.emote,tomorrowEvent.name,bot.user.avatarURL())]});
+	getAnnoucementChannel().send({content: `<@&${config.skyblockID}> <@&${config.survivalID}>`, embeds: [eventMessages.eventTomorrow(tomorrowEvent.emote,tomorrowEvent.title,bot.user.avatarURL())]});
 }, null, true, 'Asia/Taipei');
 tomorrowMessage.start();
 
@@ -16,14 +16,14 @@ tomorrowMessage.start();
 var todayMessageSkyblock = new CronJob('40 20 * * *', function() {
     if(!Object.prototype.hasOwnProperty.call(getEventSchedule(), "today")){return;}
     const todayEvent = getEventSchedule()[getEventSchedule().today];
-	getAnnoucementChannel().send(eventMessages.eventStart(todayEvent.emote,todayEvent.name,"21:00",config.skyblockID));
+	getAnnoucementChannel().send(eventMessages.eventStart(todayEvent.emote,todayEvent.title,"21:00",config.skyblockID));
 }, null, true, 'Asia/Taipei');
 todayMessageSkyblock.start();
 
 var todayMessageSurvival = new CronJob('40 21 * * *', function() {
     if(!Object.prototype.hasOwnProperty.call(getEventSchedule(), "today")){return;}
     const todayEvent = getEventSchedule()[getEventSchedule().today];
-	getAnnoucementChannel().send(eventMessages.eventStart(todayEvent.emote,todayEvent.name,"22:00",config.survivalID));
+	getAnnoucementChannel().send(eventMessages.eventStart(todayEvent.emote,todayEvent.title,"22:00",config.survivalID));
 }, null, true, 'Asia/Taipei');
 todayMessageSurvival.start();
 
