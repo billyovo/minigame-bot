@@ -9,7 +9,7 @@ module.exports = {
             const name = params.shift();
             const game = params.length === 0 ? getEventSchedule()[getEventSchedule().today].title : params.join(' ');
             msg.delete();
-            let winner = db.query('SELECT name, UUID FROM player WHERE name = ?',[name]);
+            let winner = await db.query('SELECT name, UUID FROM player WHERE name = ?',[name]);
             let uuid = winner[0] ? winner[0].UUID : "";
   
             //is winner name in database?
