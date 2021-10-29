@@ -1,4 +1,4 @@
-const {getAnnoucementChannel} = require("../../../index.js");
+const {getAnnoucementChannel} = require("../init.js");
 const {serverParamsToChannelID} = require("../../Helper/eventHelper.js");
 const eventMessages = require("../../../editables/messages.js");
 
