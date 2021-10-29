@@ -1,9 +1,9 @@
 var CronJob = require('cron').CronJob;
-let {bot, getAnnoucementChannel} = require("../discord/init.js");
+let {bot, getAnnoucementChannel} = require("../../index.js");
 const eventMessages = require('../../editables/messages.js');
 const config = require('../../editables/config.json');
 let {getEventSchedule, updateSchedule} = require("../utility/checkEvents");
-const {updateDiscordStatus} = require("../discord/init.js");
+const {updateDiscordStatus} = require("../../index.js");
 
 var tomorrowMessage = new CronJob('0 17 * * *', function() {
     if(!Object.prototype.hasOwnProperty.call(getEventSchedule(), "tomorrow")){return;}

@@ -1,4 +1,4 @@
-var db = require('../../Helper/db.js');
+const db = require('../../Helper/db.js');
 
 module.exports = {
     run: function(bot, msg, params){
