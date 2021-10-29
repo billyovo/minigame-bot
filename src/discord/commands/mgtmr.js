@@ -1,4 +1,6 @@
 const {getAnnoucementChannel} = require("../../../index.js");
+const eventMessages = require("../../../editables/messages.js");
+const config = require("../../../editables/config.json");
 
 module.exports = {
     run: function(bot, msg, params){

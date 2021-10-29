@@ -36,7 +36,7 @@ function loadCommands(){
         const command = require(dirPath+`/${file}`);
       
         bot.commands.set(commandName, command);
-        console.log("loaded command "+commandName);
+        console.log("Loaded command: "+commandName);
     }
 
     const slashDirPath = path.resolve(__dirname, './src/discord/slash_commands');
@@ -46,7 +46,7 @@ function loadCommands(){
         const command = require(slashDirPath+`/${file}`);
       
         bot.commands.set(commandName, command);
-        console.log("loaded command "+commandName);
+        console.log("Loaded slash command: "+commandName);
     }
 }
 
