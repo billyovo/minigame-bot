@@ -33,7 +33,6 @@ function loadCommands(){
     }
 }
 
-
 updateSchedule();
 loadCommands();
 
