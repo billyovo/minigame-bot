@@ -37,7 +37,7 @@ updateSchedule();
 loadCommands();
 
 bot.on('messageCreate',async (msg) => {
-    if(!msg.content.startsWith(prefix) || msg.author.bot){return;}
+    if(!msg.content.startsWith(prefix)){return;}
     if(msg.member && !msg.member.permissions.has(Permissions.FLAGS.MANAGE_WEBHOOKS)){return;}
     let params = msg.content.substring(1).split(' ');
     const commandName = params.shift(); 
