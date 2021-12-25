@@ -11,5 +11,8 @@ module.exports= {
     },
     serverParamsToChannelID: function(params){
         return serverArgs.includes(params.toLowerCase()) ? config.survivalID : config.skyblockID;
+    },
+    serverParamsToChinese: function(params){
+        return serverArgs.includes(params.toLowerCase()) ? "生存" : "空島";
     }
 }

@@ -1,5 +1,5 @@
 var CronJob = require('cron').CronJob;
-let {bot, getAnnoucementChannel,updateDiscordStatus} = require("../discord/init.js");
+let {bot, getAnnoucementChannel,updateDiscordStatus,getDiscordScheduledEvents} = require("../discord/init.js");
 const eventMessages = require('../../editables/messages.js');
 const config = require('../../editables/config.json');
 let {getEventSchedule, updateSchedule} = require("../utility/checkEvents.js");
@@ -12,10 +12,12 @@ var tomorrowMessage = new CronJob('0 17 * * *', function() {
 tomorrowMessage.start();
 
 
-var todayMessageSkyblock = new CronJob('40 20 * * *', function() {
+var todayMessageSkyblock = new CronJob('40 20 * * *', async function() {
     if(!Object.prototype.hasOwnProperty.call(getEventSchedule(), "today")){return;}
     const todayEvent = getEventSchedule()[getEventSchedule().today];
 	getAnnoucementChannel().send(eventMessages.eventStart(todayEvent.emote,todayEvent.title,"21:00",config.skyblockID));
+    const events = await getDiscordScheduledEvents();
+    events.at(0)?.setStatus("ACTIVE");
 }, null, true, 'Asia/Taipei');
 todayMessageSkyblock.start();
 
@@ -23,6 +25,8 @@ var todayMessageSurvival = new CronJob('40 21 * * *', function() {
     if(!Object.prototype.hasOwnProperty.call(getEventSchedule(), "today")){return;}
     const todayEvent = getEventSchedule()[getEventSchedule().today];
 	getAnnoucementChannel().send(eventMessages.eventStart(todayEvent.emote,todayEvent.title,"22:00",config.survivalID));
+    const events = await getDiscordScheduledEvents();
+    events.at(0)?.setStatus("ACTIVE");
 }, null, true, 'Asia/Taipei');
 todayMessageSurvival.start();
 

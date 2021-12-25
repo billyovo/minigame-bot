@@ -21,6 +21,10 @@ module.exports= {
 	
         return embed;   
     },  
+
+    eventSchedule: function(time){
+        return `my name is jeff!`;
+    },
     
     eventStart: function(emote,name,time,roleID){
         return `<@&${roleID}>

@@ -4,13 +4,13 @@
   "description": "minigame winner api and bot",
   "main": "index.js",
   "dependencies": {
-    "discord.js": "^13.1.0",
-    "dotenv": "^8.2.0",
-    "mysql": "2.18.1",
-    "rrule": "2.6.4",
-    "luxon": "^1.26.0",
     "cron": "^1.8.2",
-    "node-fetch": "^2.6.1"
+    "discord.js": "^13.4.0",
+    "dotenv": "^8.2.0",
+    "luxon": "^1.26.0",
+    "mysql": "2.18.1",
+    "node-fetch": "^2.6.1",
+    "rrule": "2.6.4"
   },
   "scripts": {
     "start": "node .",
