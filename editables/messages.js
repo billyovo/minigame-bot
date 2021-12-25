@@ -22,8 +22,12 @@ module.exports= {
         return embed;   
     },  
 
-    eventScheduleMessage: function(time){
-        return `my name is jeff!`;
+    eventScheduleMessage: function(server){
+        return `小遊戲入口會在正式開始前20分鐘開啟
+有意參加的玩家可以按spawn左邊的魔法使, 往右走就能找到傳送告示牌了
+:warning: 小遊戲會在${server}小遊戲伺服器舉行, 建議提早3分鐘起行以免錯過開始時間
+:warning: 請在背包預留至少5格空位以便回來時領取參加獎
+`;
     },
     
     eventStart: function(emote,name,time,roleID){
