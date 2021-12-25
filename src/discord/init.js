@@ -57,7 +57,7 @@ bot.on('ready', async () => {
     console.log("Connected to Discord as: "+bot.user.tag);
     console.log("Found event annoucement channel: "+annoucementChannel.name);
     console.log('done!');
-//setEventSchedule(getEventSchedule()[getEventSchedule().today],"空島");
+
     updateDiscordStatus();
     updateScheduledEvents();
 })
