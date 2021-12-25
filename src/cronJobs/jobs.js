@@ -21,7 +21,7 @@ var todayMessageSkyblock = new CronJob('40 20 * * *', async function() {
 }, null, true, 'Asia/Taipei');
 todayMessageSkyblock.start();
 
-var todayMessageSurvival = new CronJob('40 21 * * *', function() {
+var todayMessageSurvival = new CronJob('40 21 * * *', async function() {
     if(!Object.prototype.hasOwnProperty.call(getEventSchedule(), "today")){return;}
     const todayEvent = getEventSchedule()[getEventSchedule().today];
 	getAnnoucementChannel().send(eventMessages.eventStart(todayEvent.emote,todayEvent.title,"22:00",config.survivalID));

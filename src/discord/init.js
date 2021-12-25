@@ -30,7 +30,7 @@ function setEventSchedule(event, server){
     const serverName = serverParamsToChinese(server);
     let eventTime = serverName === "生存" ? event.date.plus({hours: 1}) : event.date;
     annoucementChannel.guild.scheduledEvents.create({ 
-        name: event.emote +" "+event.title+" - "+eventTime.minus({minutes: 20}).toFormat('HH:mm')+" 正式開始",
+        name: "\\"+event.emote +" "+event.title+" - "+eventTime.minus({minutes: 20}).toFormat('HH:mm')+" 正式開始",
         scheduledStartTime: eventTime.minus({minutes: 20}).toMillis(),
         scheduledEndTime: eventTime.plus({minutes: 30}).toMillis(),
         privacyLevel: "GUILD_ONLY",
