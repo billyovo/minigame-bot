@@ -3,6 +3,7 @@ const bot = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MES
 const {getEventSchedule, updateSchedule} = require("../utility/checkEvents");
 const {serverParamsToChinese} = require("../Helper/eventHelper");
 const config = require("../../editables/config.json");
+const {eventScheduleMessage} = require("../../editables/messages");
 bot.login(process.env.TOKEN);
 let annoucementChannel = null;
 
@@ -30,11 +31,12 @@ function setEventSchedule(event, server){
     const serverName = serverParamsToChinese(server);
     let eventTime = serverName === "生存" ? event.date.plus({hours: 1}) : event.date;
     annoucementChannel.guild.scheduledEvents.create({ 
-        name: "\\"+event.emote +" "+event.title+" - "+eventTime.toFormat('HH:mm')+" 正式開始",
+        name: event.emote +" "+event.title+" - "+eventTime.toFormat('HH:mm')+" 正式開始",
         scheduledStartTime: eventTime.toMillis(),
         scheduledEndTime: eventTime.plus({minutes: 30}).toMillis(),
         privacyLevel: "GUILD_ONLY",
         entityType: "EXTERNAL",
+        description: eventScheduleMessage(),
         entityMetadata:{
             location: serverName+"小遊戲伺服器"
         }

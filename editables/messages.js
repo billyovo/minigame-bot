@@ -22,7 +22,7 @@ module.exports= {
         return embed;   
     },  
 
-    eventSchedule: function(time){
+    eventScheduleMessage: function(time){
         return `my name is jeff!`;
     },
     
