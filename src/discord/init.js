@@ -36,7 +36,7 @@ function setEventSchedule(event, server){
         scheduledEndTime: eventTime.plus({minutes: 30}).toMillis(),
         privacyLevel: "GUILD_ONLY",
         entityType: "EXTERNAL",
-        description: eventScheduleMessage(),
+        description: eventScheduleMessage(serverName),
         entityMetadata:{
             location: serverName+"小遊戲伺服器"
         }
