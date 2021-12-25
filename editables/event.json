@@ -2,7 +2,7 @@
     {
       "title": "碰碰豬",
       "id": "bumper",
-      "rrule": "FREQ=MONTHLY;BYDAY=2WE,4SA",
+      "rrule": "FREQ=MONTHLY;BYDAY=2WE",
       "imageurl":"assets/images/pig.svg",
       "emote": "🐷"
     },
