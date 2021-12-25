@@ -28,7 +28,7 @@ var todayMessageSurvival = new CronJob('40 21 * * *', async function() {
     const todayEvent = getEventSchedule()[getEventSchedule().today];
 	getAnnoucementChannel().send(eventMessages.eventStart(todayEvent.emote,todayEvent.title,"22:00",config.survivalID));
     const currentEvent = events.at(0);
-    currentEvent.edit({name: currentEvent.name + " - 21:00正式開始"});
+    currentEvent.edit({name: currentEvent.name + " - 22:00正式開始"});
     currentEvent.setStatus("ACTIVE");
 }, null, true, 'Asia/Taipei');
 todayMessageSurvival.start();
