@@ -29,7 +29,7 @@ async function updateScheduledEvents(){
 function setEventSchedule(event, server){
     const serverName = serverParamsToChinese(server);
     let eventTime = serverName === "生存" ? event.date.plus({hours: 1}) : event.date;
-    annoucementChannel.guild.scheduledEvents.create({
+    annoucementChannel.guild.scheduledEvents.create({ 
         name: event.emote +" "+event.title+" - "+eventTime.minus({minutes: 20}).toFormat('HH:mm')+" 正式開始",
         scheduledStartTime: eventTime.minus({minutes: 20}).toMillis(),
         scheduledEndTime: eventTime.plus({minutes: 30}).toMillis(),
@@ -44,8 +44,8 @@ function setEventSchedule(event, server){
 async function getDiscordScheduledEvents(){
     let events = await annoucementChannel.guild.scheduledEvents.fetch();
     return events.filter((event)=> event.creator.id === bot.user.id).sort((eventA,eventB)=> eventA.scheduledStartTime > eventB.scheduledStartTime);
-}
-
+} 
+ 
 bot.on('ready', async () => {
     annoucementChannel = await bot.channels.fetch(config.annoucementChannelID,true,true);
     
