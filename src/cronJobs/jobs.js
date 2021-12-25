@@ -27,6 +27,7 @@ var todayMessageSurvival = new CronJob('40 21 * * *', async function() {
     if(!Object.prototype.hasOwnProperty.call(getEventSchedule(), "today")){return;}
     const todayEvent = getEventSchedule()[getEventSchedule().today];
 	getAnnoucementChannel().send(eventMessages.eventStart(todayEvent.emote,todayEvent.title,"22:00",config.survivalID));
+    const events = await getDiscordScheduledEvents();
     const currentEvent = events.at(0);
     currentEvent.edit({name: currentEvent.name + " - 22:00正式開始"});
     currentEvent.setStatus("ACTIVE");
