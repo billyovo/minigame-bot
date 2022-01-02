@@ -37,5 +37,6 @@ todayMessageSurvival.start();
 var scheduleCheckEvent = new CronJob('1 0 * * *', function() {
     updateSchedule();
     updateDiscordStatus();
+    updateScheduledEvents();	
 }, null, true, 'Asia/Taipei');
 scheduleCheckEvent.start();
