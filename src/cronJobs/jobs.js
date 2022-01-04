@@ -1,5 +1,5 @@
 var CronJob = require('cron').CronJob;
-let {bot, getAnnoucementChannel,updateDiscordStatus,getDiscordScheduledEvents} = require("../discord/init.js");
+let {bot, getAnnoucementChannel,updateDiscordStatus,getDiscordScheduledEvents, updateScheduledEvents} = require("../discord/init.js");
 const eventMessages = require('../../editables/messages.js');
 const config = require('../../editables/config.json');
 let {getEventSchedule, updateSchedule} = require("../utility/checkEvents.js");
@@ -37,5 +37,6 @@ todayMessageSurvival.start();
 var scheduleCheckEvent = new CronJob('1 0 * * *', function() {
     updateSchedule();
     updateDiscordStatus();
+    updateScheduledEvents();	
 }, null, true, 'Asia/Taipei');
 scheduleCheckEvent.start();
