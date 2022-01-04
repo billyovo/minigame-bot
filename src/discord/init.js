@@ -67,6 +67,7 @@ bot.on('ready', async () => {
 module.exports = {
     updateDiscordStatus: updateDiscordStatus,
     getDiscordScheduledEvents: getDiscordScheduledEvents,
+    updateScheduledEvents: updateScheduledEvents,
     getAnnoucementChannel: function(){
         return annoucementChannel;
     },
