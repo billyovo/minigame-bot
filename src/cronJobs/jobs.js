@@ -40,3 +40,13 @@ var scheduleCheckEvent = new CronJob('1 0 * * *', function() {
     updateScheduledEvents();	
 }, null, true, 'Asia/Taipei');
 scheduleCheckEvent.start();
+
+var tomorrowMazeMessage = new CronJob('0 12 14 * *', function() {
+    getAnnoucementChannel().send({content: `<@&${config.skyblockID}> <@&${config.survivalID}>`, embeds: [eventMessages.eventMazeTomorrow(bot.user.avatarURL())]});
+}, null, true, 'Asia/Taipei');
+tomorrowMazeMessage.start();
+
+var todayMazeMessage = new CronJob('0 14 15 * *', function() {
+    getAnnoucementChannel().send(eventMessages.eventMazeToday());
+}, null, true, 'Asia/Taipei');
+todayMazeMessage.start();
