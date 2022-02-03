@@ -72,7 +72,7 @@ ${server}服: ${game} - `+ "無人獲勝";
 有意參加的玩家可以按spawn左邊的魔法使, 往右走就能找到傳送告示牌了
 到達小遊戲伺服器後一直向左前方走即可看到前往迷宮的樓梯
 :warning: 請在背包預留至少5格空位以便從小遊戲伺服器來時領取參加獎
-:calendar_spiral: 下一次迷宮重置日期: ${nextResetDate.isValid ? `<t:${parseInt(nextResetDate.toSeconds())}:t>` : "待定"}
+:calendar_spiral: 下一次迷宮重置日期: ${nextResetDate.isValid ? `<t:${parseInt(nextResetDate.toSeconds())}:d>` : "待定"}
 `;
     }	
 }
