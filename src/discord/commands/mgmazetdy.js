@@ -8,7 +8,7 @@ module.exports = {
             getAnnoucementChannel().send(eventMessages.eventMazeToday());
             return;
         }
-        if(DateTime.fromFormat(params[0],"hh:mm").isValid()){
+        if(DateTime.fromFormat(params[0],"hh:mm").isValid){
             getAnnoucementChannel().send(eventMessages.eventMazeToday(params[0]));   
         }
         else{
