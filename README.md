@@ -26,6 +26,12 @@ send tomorrow event message manaully, if start time is not provided, default to 
 ### mgtdy <event emote> <event name> <event time> <server>   
 send event today message manually
 
+### mgmazetmr <reset time> <open time>
+send reset maze tomorrow message manually, if time not provided, default to 13:30 and 14:00 respectively.
+  
+### mgmazetdy <next reset time>
+send open maze message manually, next reset time can be a time or "unknown", if not provided default to 13:30
+    
 ----------------------------------------------------------------------------------------------------------------
   
 All the event messages, event schedule, annoucement channel setting, role ping setting in ./editables
