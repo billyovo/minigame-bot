@@ -1,0 +1,22 @@
+{
+	"name": "banlist",
+	"description": "顯示禁賽名單",
+	"options": [
+		{
+			"name": "server",
+			"description": "伺服器",
+			"type": 3,
+			"required": true,
+			"choices": [
+				{
+					"name": "生存",
+					"value": "survival"
+				},
+				{
+					"name": "空島",
+					"value": "skyblock"
+				}
+			]
+		}
+	]
+}
