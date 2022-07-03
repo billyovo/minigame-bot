@@ -65,6 +65,7 @@ bot.on('ready', async () => {
 })
 
 process.on('uncaughtException', function(err) {
+    console.log("Stupid discord hung up the TCP connection!");
     if(Object.prototype.hasOwnProperty.call(getEventSchedule(), "today")){
         bot.user.setActivity("是日小遊戲: "+ getEventSchedule()[getEventSchedule().today].title, {type: "PLAYING"});
     }
