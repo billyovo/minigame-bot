@@ -64,6 +64,15 @@ bot.on('ready', async () => {
     updateScheduledEvents();
 })
 
+process.on('uncaughtException', function(err) {
+    if(Object.prototype.hasOwnProperty.call(getEventSchedule(), "today")){
+        bot.user.setActivity("是日小遊戲: "+ getEventSchedule()[getEventSchedule().today].title, {type: "PLAYING"});
+    }
+    else{
+        bot.user.setActivity("今天沒有小遊戲 :(", {type: "PLAYING"});
+    }
+});
+
 module.exports = {
     updateDiscordStatus: updateDiscordStatus,
     getDiscordScheduledEvents: getDiscordScheduledEvents,

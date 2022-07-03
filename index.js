@@ -49,3 +49,6 @@ bot.on('interactionCreate', async (interaction) => {
 	const { commandName } = interaction;
     bot.commands.get(commandName)?.run(bot,interaction);   
 });
+process.on('uncaughtException', function(err) {
+  console.log('Caught exception: ' + err);
+});
