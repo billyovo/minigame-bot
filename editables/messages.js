@@ -18,7 +18,7 @@ module.exports= {
 		{ name: `<:grassblock:833226098020057088> 生存`, value: `<t:${parseInt(survivalDate.toSeconds())}:t>`, inline: true },
         )
 //        .setFooter('點擊標題獲取更多資訊',avatar)
-        .setFooter('更多資訊準備中~',avatar)
+        .setFooter({text: '更多資訊準備中~', iconURL: avatar})
 	
         return embed;   
     },  
@@ -62,7 +62,7 @@ ${server}服: ${game} - `+ "無人獲勝";
 		{ name: `<:close:936717091120246895> 關閉重置時間`, value: `<t:${parseInt(resetDate.toSeconds())}:t>`, inline: true },
 		{ name: `<:open:936717091011170395> 重新開放時間`, value: `<t:${parseInt(openDate.toSeconds())}:t>`, inline: true },
         )
-        .setFooter('更多資訊準備中~',avatar)
+        .setFooter({text: '更多資訊準備中~', iconURL: avatar})
         return embed;   
     },
     eventMazeToday: function(nextResetTime = '13:30'){
