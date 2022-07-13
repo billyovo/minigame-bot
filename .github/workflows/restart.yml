@@ -13,7 +13,7 @@ jobs:
       - name: Restart 
         run: |
           curl --request POST \
-          --url ${{ secrets.API_LINK }}
+          --url ${{ secrets.API_LINK }} \
           --header 'Accept: application/json' \
           --header 'Content-Type: application/json' \
           --header 'Authorization: Bearer ${{ secrets.API_KEY }}' \
