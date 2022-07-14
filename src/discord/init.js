@@ -4,6 +4,7 @@ const {getEventSchedule, updateSchedule} = require("../utility/checkEvents");
 const {serverParamsToChinese} = require("../Helper/eventHelper");
 const config = require("../../editables/config.json");
 const {eventScheduleMessage} = require("../../editables/messages");
+const path = require('path');
 bot.login(process.env.TOKEN);
 let annoucementChannel = null;
 
@@ -22,8 +23,9 @@ function updateDiscordStatus(){
 async function updateScheduledEvents(){
     const schedule = await getDiscordScheduledEvents();
     if(schedule.size === 0){
-        setEventSchedule(getEventSchedule()[getEventSchedule().nearest], "空島");
-        setEventSchedule(getEventSchedule()[getEventSchedule().nearest], "生存");
+        const nearestID = getEventSchedule().nearest;
+        setEventSchedule(getEventSchedule()[nearestID], "skyblock");
+        setEventSchedule(getEventSchedule()[nearestID], "survival");
     }
 }
 
@@ -34,6 +36,7 @@ function setEventSchedule(event, server){
         name: event.emote +" "+event.title,
         scheduledStartTime: eventTime.toMillis(),
         scheduledEndTime: eventTime.plus({minutes: 30}).toMillis(),
+        image: path.resolve(__dirname, `../../editables/images/${event.id}_${server}.png`),
         privacyLevel: "GUILD_ONLY",
         entityType: "EXTERNAL",
         description: eventScheduleMessage(serverName),
@@ -65,7 +68,6 @@ bot.on('ready', async () => {
 })
 
 process.on('uncaughtException', function(err) {
-    console.log("Stupid discord hung up the TCP connection!");
     if(Object.prototype.hasOwnProperty.call(getEventSchedule(), "today")){
         bot.user.setActivity("是日小遊戲: "+ getEventSchedule()[getEventSchedule().today].title, {type: "PLAYING"});
     }

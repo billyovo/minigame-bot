@@ -30,6 +30,7 @@ function updateEvents(){
         //push into map
         eventsDateMap[event.id] = {
             title: event.title,
+            id: event.id,
             date: eventDate,
             emote: event.emote
         }
