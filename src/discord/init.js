@@ -37,7 +37,7 @@ function setEventSchedule(event, server){
         scheduledStartTime: eventTime.toMillis(),
         scheduledEndTime: eventTime.plus({minutes: 30}).toMillis(),
         image: path.resolve(__dirname, `../../editables/images/${event.id}_${server}.png`),
-        privacyLevel: "GUILD_ONLY",
+        privacyLevel: 2,
         entityType: GuildScheduledEventEntityType.External,
         description: eventScheduleMessage(serverName),
         entityMetadata:{
