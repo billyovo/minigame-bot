@@ -5,8 +5,8 @@ on:
     branches:
       - master
     paths:
-    - src
-    - editables
+    - src/**
+    - editables/**
     - index.js
       
 jobs:
