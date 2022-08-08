@@ -5,13 +5,12 @@ const config = require('./editables/config.json')
 const path = require('path');
 const {updateSchedule} = require("./src/utility/checkEvents.js");
 const {bot} = require("./src/discord/init.js");
-const {Permissions} = require('discord.js');
-const Discord = require('discord.js')
+const {PermissionsBitField, Collection} = require('discord.js');
 const fs = require("fs");
 const prefix = config.prefix;
 
 function loadCommands(){
-    bot.commands = new Discord.Collection();
+    bot.commands = new Collection();
     const dirPath = path.resolve(__dirname, './src/discord/commands');
     const commands = fs.readdirSync(dirPath).filter(file => file.endsWith(".js"));
     for (const file of commands) {
@@ -38,7 +37,7 @@ loadCommands();
 
 bot.on('messageCreate',async (msg) => {
     if(!msg.content.startsWith(prefix)){return;}
-    if(msg.member && !msg.member.permissions.has(Permissions.FLAGS.MANAGE_WEBHOOKS)){return;}
+    if(msg.member && !msg.member.permissions.has(PermissionsBitField.Flags.ManageWebhooks)){return;}
     let params = msg.content.substring(1).split(' ');
     const commandName = params.shift(); 
     bot.commands.get(commandName)?.run(bot,msg,params);

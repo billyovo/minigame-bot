@@ -1,5 +1,5 @@
 const {Client, GatewayIntentBits, Partials, ActivityType } = require('discord.js');
-const bot = new Client({ intents: [GatewayIntentBits.Guilds]});
+const bot = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent]});
 const {getEventSchedule, updateSchedule} = require("../utility/checkEvents");
 const {serverParamsToChinese} = require("../Helper/eventHelper");
 const config = require("../../editables/config.json");
