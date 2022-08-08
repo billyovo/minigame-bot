@@ -1,0 +1,28 @@
+name: Register Slash Commands
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - slash_commands_json/**
+
+jobs:
+  Register:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with: 
+          fetch-depth: 0
+          
+      - name: Get Changed Slash Commands
+        uses: tj-actions/changed-files@v24.1
+        id: changed-files
+        with:
+          files: |
+            slash_commands_json
+            
+      - name: Register All Changed Commands
+        run: |
+          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+            curl -X POST -H "Content-Type: application/json" -H "Authorization: Bot ${{ secrets.BOT_TOKEN }}" -d $file ${{ SLASH_COMMAND_API_LINK }}
+          done
