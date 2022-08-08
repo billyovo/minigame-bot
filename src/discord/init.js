@@ -1,4 +1,4 @@
-const {Client, GatewayIntentBits, Partials, ActivityType } = require('discord.js');
+const {Client, GatewayIntentBits, Partials, ActivityType, GuildScheduledEventEntityType} = require('discord.js');
 const bot = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent]});
 const {getEventSchedule, updateSchedule} = require("../utility/checkEvents");
 const {serverParamsToChinese} = require("../Helper/eventHelper");
@@ -38,7 +38,7 @@ function setEventSchedule(event, server){
         scheduledEndTime: eventTime.plus({minutes: 30}).toMillis(),
         image: path.resolve(__dirname, `../../editables/images/${event.id}_${server}.png`),
         privacyLevel: "GUILD_ONLY",
-        entityType: "EXTERNAL",
+        entityType: GuildScheduledEventEntityType.External,
         description: eventScheduleMessage(serverName),
         entityMetadata:{
             location: serverName+"小遊戲伺服器"
