@@ -1,4 +1,4 @@
-const {Client, GatewayIntentBits, Partials } = require('discord.js');
+const {Client, GatewayIntentBits, Partials, ActivityType } = require('discord.js');
 const bot = new Client({ intents: [GatewayIntentBits.Guilds]});
 const {getEventSchedule, updateSchedule} = require("../utility/checkEvents");
 const {serverParamsToChinese} = require("../Helper/eventHelper");
@@ -12,10 +12,10 @@ function updateDiscordStatus(){
     console.log("Today's event:    "+ (Object.prototype.hasOwnProperty.call(getEventSchedule(), "today") ? getEventSchedule()[getEventSchedule().today].title : "none"));
     console.log("Tomorrow's event: "+ (Object.prototype.hasOwnProperty.call(getEventSchedule(), "tomorrow") ? getEventSchedule()[getEventSchedule().tomorrow].title : "none"));
     if(Object.prototype.hasOwnProperty.call(getEventSchedule(), "today")){
-        bot.user.setActivity("是日小遊戲: "+ getEventSchedule()[getEventSchedule().today].title, {type: "PLAYING"});
+        bot.user.setActivity("是日小遊戲: "+ getEventSchedule()[getEventSchedule().today].title, {type: ActivityType.Playing});
     }
     else{
-        bot.user.setActivity("今天沒有小遊戲 :(", {type: "PLAYING"});
+        bot.user.setActivity("今天沒有小遊戲 :(", {type: ActivityType.Watching});
     }
     
 }
