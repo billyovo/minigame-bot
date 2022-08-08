@@ -1,6 +1,6 @@
 const db = require('../../Helper/db.js');
 const {serverParamsToDBName}= require('../../Helper/eventHelper.js');
-const eventMessages = require("../../../editables/messages.js");
+const eventMessages = require("../../../editables/event_messages.js");
 let {getDiscordScheduledEvents} = require("../../discord/init.js");
 
 module.exports = {

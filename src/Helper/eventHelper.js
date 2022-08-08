@@ -6,6 +6,10 @@ module.exports= {
         let result = events.find(event => event.title == name);
         return result ? result.emote : "";
     },
+    getEventNameByID: function(id){
+        let result = events.find(event => event.id == id);
+        return result ? result.title : "";
+    },
     serverParamsToDBName: function(params){
         return serverArgs.includes(params.toLowerCase()) ? "survival" : "skyblock";
     },

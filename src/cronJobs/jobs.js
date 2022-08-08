@@ -1,6 +1,6 @@
 var CronJob = require('cron').CronJob;
 let {bot, getAnnoucementChannel,updateDiscordStatus,getDiscordScheduledEvents, updateScheduledEvents} = require("../discord/init.js");
-const eventMessages = require('../../editables/messages.js');
+const eventMessages = require('../../editables/event_messages.js');
 const config = require('../../editables/config.json');
 let {getEventSchedule, updateSchedule} = require("../utility/checkEvents.js");
 

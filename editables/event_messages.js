@@ -1,12 +1,12 @@
 var { DateTime } = require('luxon');
-const Discord = require('discord.js');
+const {EmbedBuilder} = require('discord.js');
 const config = require('./config.json');
 
 module.exports= {
     eventTomorrow: function(emote,name,avatar, skyblockTime = '21:00', survivalTime = '22:00'){
         let skyblockDate = DateTime.fromFormat(skyblockTime,"hh:mm").plus({days: 1});
         let survivalDate = DateTime.fromFormat(survivalTime,"hh:mm").plus({days: 1});
-        let embed = new Discord.MessageEmbed()
+        let embed = new EmbedBuilder()
         .setColor('#ee831b')
 		.setTitle('活動提示')
  //       .setURL('https://billyovo.github.io/event-calendar')
@@ -53,7 +53,7 @@ ${server}服: ${game} - `+ "無人獲勝";
     eventMazeTomorrow: function(avatar, resetTime = '13:30', openTime = '14:00'){
         let resetDate = DateTime.fromFormat(resetTime,"hh:mm").plus({days: 1});
         let openDate = DateTime.fromFormat(openTime,"hh:mm").plus({days: 1});
-        let embed = new Discord.MessageEmbed()
+        let embed = new EmbedBuilder()
         .setColor('#2de3c2')
 		.setTitle('迷宮重置提示')
         .addFields(

@@ -1,9 +1,9 @@
-const {Client, Intents} = require('discord.js');
-const bot = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES]});
+const {Client, GatewayIntentBits, Partials } = require('discord.js');
+const bot = new Client({ intents: [GatewayIntentBits.Guilds]});
 const {getEventSchedule, updateSchedule} = require("../utility/checkEvents");
 const {serverParamsToChinese} = require("../Helper/eventHelper");
 const config = require("../../editables/config.json");
-const {eventScheduleMessage} = require("../../editables/messages");
+const {eventScheduleMessage} = require("../../editables/event_messages.js");
 const path = require('path');
 bot.login(process.env.TOKEN);
 let annoucementChannel = null;
@@ -67,14 +67,7 @@ bot.on('ready', async () => {
     updateScheduledEvents();
 })
 
-process.on('uncaughtException', function(err) {
-    if(Object.prototype.hasOwnProperty.call(getEventSchedule(), "today")){
-        bot.user.setActivity("是日小遊戲: "+ getEventSchedule()[getEventSchedule().today].title, {type: "PLAYING"});
-    }
-    else{
-        bot.user.setActivity("今天沒有小遊戲 :(", {type: "PLAYING"});
-    }
-});
+
 
 module.exports = {
     updateDiscordStatus: updateDiscordStatus,

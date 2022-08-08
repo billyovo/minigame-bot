@@ -1,6 +1,7 @@
 const db = require("../../Helper/db.js");
 const {serverParamsToChinese} = require("../../Helper/eventHelper.js");
-const {MessageEmbed} = require("discord.js");
+const {EmbedBuilder} = require('discord.js');
+
 module.exports = {
     run: function(bot, interaction){
             const target = interaction.options.get("player");
@@ -12,7 +13,7 @@ module.exports = {
                     interaction.reply({content: "找不到玩家 `"+name+"` 的紀錄 :(", ephemeral: true})
                 }
                 else{
-                    const embed = new MessageEmbed()
+                    const embed = new EmbedBuilder()
                         .setColor('#ee831b')
                         .setTitle(name)
                         .setDescription(server === 'all' ? "合共紀錄" : serverParamsToChinese(server)+"服")
