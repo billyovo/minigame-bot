@@ -2,12 +2,17 @@ const {ActionRowBuilder, ButtonBuilder, ButtonStyle} = require("discord.js");
 const system_messages = require("../../editables/system_messages.js");
 module.exports= {
     createConfirmCollector: function(interaction, author, success){
-        const filter = i => ['confirm', 'cancel'].includes(i.customId) && i.user.id === author.id;
+        const options = {
+            confirm: `confirm-${interaction.id}`,
+            cancel: `cancel-${interaction.id}`
+        }
+
+        const filter = i =>  Object.values(options).includes(i.customId) && i.user.id === author.id;
 
         const collector = interaction.channel.createMessageComponentCollector({ filter, time: 15000 });
 
         collector.on('collect', async (i) => {
-            if(i.customId === 'confirm'){
+            if(i.customId === options.confirm){
                 Promise.resolve(success())
                 .then((message)=>{
                     if(!message){
@@ -16,9 +21,11 @@ module.exports= {
                     i.update({content: "", components:[], embeds: [system_messages.success_message_sent(message)]})
                 });
             }
-            else{
+            
+            if(i.customId === options.cancel){
                 i.update({content: "", components:[], embeds: [system_messages.cancel()]})
             }
+
             collector.stop();
         });
 
@@ -28,15 +35,15 @@ module.exports= {
         return collector;
     },
 
-    createButtonRows: function(){
+    createButtonRows: function(interaction){
         const confirm = new ActionRowBuilder()
                         .addComponents(
                             new ButtonBuilder()
-                                .setCustomId('confirm')
+                                .setCustomId(`confirm-${interaction.id}`)
                                 .setLabel('Confirm')
                                 .setStyle(ButtonStyle.Success),
                             new ButtonBuilder()
-                                .setCustomId('cancel')
+                                .setCustomId(`cancel-${interaction.id}`)
                                 .setLabel('Cancel')
                                 .setStyle(ButtonStyle.Danger),
                         );

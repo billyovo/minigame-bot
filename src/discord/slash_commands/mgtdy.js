@@ -16,7 +16,7 @@ module.exports = {
 
         const roleID = server === 'survival' ? config.skyblockID : config.skyblockID;
         
-        await interaction.reply({ content: `I am going to send this to <#${getAnnoucementChannel().id}>\r\n\r\n\r\n ${eventMessages.eventStart(event_emote, event_name, time, roleID)}`, components: [createButtonRows()]});
+        await interaction.reply({ content: `I am going to send this to <#${getAnnoucementChannel().id}>\r\n\r\n\r\n ${eventMessages.eventStart(event_emote, event_name, time, roleID)}`, components: [createButtonRows(interaction)]});
         
         createConfirmCollector(interaction, interaction.user, ()=>{
             return getAnnoucementChannel().send(eventMessages.eventStart(event_emote, event_name, time, roleID));

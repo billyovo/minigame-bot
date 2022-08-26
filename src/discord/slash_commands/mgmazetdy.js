@@ -16,7 +16,7 @@ module.exports = {
             next_time = "13:30";
         }
 
-        await interaction.reply({ content: `I am going to send this to <#${getAnnoucementChannel().id}>\r\n\r\n\r\n ${eventMessages.eventMazeToday(next_time)}`, components: [createButtonRows()]});
+        await interaction.reply({ content: `I am going to send this to <#${getAnnoucementChannel().id}>\r\n\r\n\r\n ${eventMessages.eventMazeToday(next_time)}`, components: [createButtonRows(interaction)]});
         
         createConfirmCollector(interaction, interaction.user, ()=>{
             return getAnnoucementChannel().send(`${eventMessages.eventMazeToday(next_time)}`);

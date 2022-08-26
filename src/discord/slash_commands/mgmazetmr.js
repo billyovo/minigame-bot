@@ -11,7 +11,7 @@ module.exports = {
         const open_time = interaction.options.get("finish_time")?.value ?? "14:00";
 
         
-        await interaction.reply({ content: `I am going to send this to <#${getAnnoucementChannel().id}>`, components: [createButtonRows()], embeds: [eventMessages.eventMazeTomorrow(bot.avatarURL, reset_time, open_time)]});
+        await interaction.reply({ content: `I am going to send this to <#${getAnnoucementChannel().id}>`, components: [createButtonRows(interaction)], embeds: [eventMessages.eventMazeTomorrow(bot.avatarURL, reset_time, open_time)]});
         
         createConfirmCollector(interaction, interaction.user, ()=>{
             return getAnnoucementChannel().send({content: `<@&${config.skyblockID}> <@&${config.survivalID}>`,embeds: [eventMessages.eventMazeTomorrow(bot.avatarURL, reset_time, open_time)]});

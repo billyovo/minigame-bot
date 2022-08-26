@@ -15,7 +15,7 @@ module.exports = {
         const sky_time = interaction.options.get("skyblock_time")?.value ?? "21:00";
 
         
-        await interaction.reply({ content: `I am going to send this to <#${getAnnoucementChannel().id}>`, components: [createButtonRows()], embeds: [eventMessages.eventTomorrow(event_emote,event_name,bot.user.avatarURL(),sky_time,sur_time)]});
+        await interaction.reply({ content: `I am going to send this to <#${getAnnoucementChannel().id}>`, components: [createButtonRows(interaction)], embeds: [eventMessages.eventTomorrow(event_emote,event_name,bot.user.avatarURL(),sky_time,sur_time)]});
         
         createConfirmCollector(interaction, interaction.user, ()=>{
             return getAnnoucementChannel().send({content: `<@&${config.skyblockID}> <@&${config.survivalID}>`,embeds: [eventMessages.eventTomorrow(getEmoteByName(event),getEventNameByID(event),bot.user.avatarURL(),sky_time,sur_time)]});
