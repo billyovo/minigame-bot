@@ -2,6 +2,7 @@ var CronJob = require('cron').CronJob;
 let {bot, getAnnoucementChannel,updateDiscordStatus,getDiscordScheduledEvents, updateScheduledEvents} = require("../discord/init.js");
 const eventMessages = require('../../editables/event_messages.js');
 const config = require('../../editables/config.json');
+const {GuildScheduledEventStatus} = require("discord.js");
 let {getEventSchedule, updateSchedule} = require("../utility/checkEvents.js");
 
 var tomorrowMessage = new CronJob('0 17 * * *', function() {
@@ -19,7 +20,7 @@ var todayMessageSkyblock = new CronJob('40 20 * * *', async function() {
     const events = await getDiscordScheduledEvents();
     const currentEvent = events.at(0);
     currentEvent.edit({name: currentEvent.name + " - 21:00正式開始"});
-    currentEvent.setStatus("ACTIVE");
+    currentEvent.setStatus(GuildScheduledEventStatus.Active);
 }, null, true, 'Asia/Taipei');
 todayMessageSkyblock.start();
 
@@ -30,7 +31,7 @@ var todayMessageSurvival = new CronJob('40 21 * * *', async function() {
     const events = await getDiscordScheduledEvents();
     const currentEvent = events.at(0);
     currentEvent.edit({name: currentEvent.name + " - 22:00正式開始"});
-    currentEvent.setStatus("ACTIVE");
+    currentEvent.setStatus(GuildScheduledEventStatus.Active);
 }, null, true, 'Asia/Taipei');
 todayMessageSurvival.start();
 
