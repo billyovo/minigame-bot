@@ -44,7 +44,7 @@ module.exports = {
         if(submission){
             let parameters = [title, content, new Date(message.createdTimestamp)];
             if(message.attachments.size !== 0){
-                parameters.push(submission.id+"-"+message.attachments.at(0).name);
+                parameters.push(message.attachments.at(0).url);
             }
             else{
                 parameters.push(null);
