@@ -5,7 +5,7 @@
 		{
 			"name": "player",
 			"description": "玩家名稱",
-			"type": 3,
+			"type": 6,
 			"required": true
 		}
 	]
