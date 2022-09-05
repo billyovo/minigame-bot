@@ -1,19 +1,34 @@
 {
 	"name": "banlist",
-	"description": "顯示禁賽名單",
+	"name_localizations": {
+		"zh-TW": "禁賽名單"
+	},
+	"description": "check the event ban list",
 	"options": [
 		{
 			"name": "server",
-			"description": "伺服器",
+			"name_localizations": {
+				"zh-TW": "伺服器"
+			},
+			"description": "select a server",
+			"description_localizations": {
+				"zh-TW": "選擇一個伺服器"
+			},
 			"type": 3,
 			"required": true,
 			"choices": [
 				{
-					"name": "生存",
+					"name": "survival",
+					"name_localizations": {
+						"zh-TW": "生存"
+					},
 					"value": "survival"
 				},
 				{
-					"name": "空島",
+					"name": "skyblock",
+					"name_localizations": {
+						"zh-TW": "空島"
+					},
 					"value": "skyblock"
 				}
 			]

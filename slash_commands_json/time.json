@@ -1,10 +1,22 @@
 {
 	"name": "time",
-	"description": "顯示某個活動的開始時間",
+	"name_localizations": {
+		"zh-TW": "查詢活動時間"
+	},
+	"description": "Show a event time",
+	"description_localizations": {
+		"zh-TW": "顯示某個活動的開始時間"
+	},
 	"options": [
 		{
 			"name": "name",
-			"description": "活動名稱",
+			"name_localizations": {
+				"zh-TW": "活動名稱"
+			},
+			"description": "Input event time",
+			"description_localizations": {
+				"zh-TW": "輸入活動名稱"
+			},
 			"type": 3,
 			"required": true,
 			"choices": [

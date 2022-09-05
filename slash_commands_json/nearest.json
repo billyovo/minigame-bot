@@ -1,4 +1,10 @@
 {
     "name": "nearest",
-    "description": "顯示下一次活動的時間"
+    "name_localizations": {
+		"zh-TW": "下次活動時間"
+	},
+    "description": "Show next minigame's start time",
+    "description_localizations": {
+		"zh-TW": "顯示下一次活動的時間"
+	}
 }
