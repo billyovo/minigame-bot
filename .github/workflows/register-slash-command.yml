@@ -5,6 +5,7 @@ on:
       - master
     paths:
       - slash_commands_json/**
+  workflow_dispatch:
 
 jobs:
   Register:
