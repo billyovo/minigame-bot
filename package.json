@@ -4,7 +4,7 @@
   "description": "minigame winner api and bot",
   "main": "index.js",
   "dependencies": {
-    "cron": "^1.8.2",
+    "cron": "^2.1.0",
     "discord.js": "^14.3.0",
     "dotenv": "^8.2.0",
     "luxon": "^2.4.0",
