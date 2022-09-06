@@ -1,5 +1,8 @@
 {
 	"name": "avatar",
+	"name_localizations":{
+		"zh-TW": "加入玩家頭像"
+	},
 	"description": "手動加入玩家頭像!!!",
 	"options": [
 		{
