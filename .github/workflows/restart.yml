@@ -8,6 +8,7 @@ on:
     - src/**
     - editables/**
     - index.js
+    - package.json
       
 jobs:
   Restart:
