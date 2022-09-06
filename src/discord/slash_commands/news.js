@@ -54,8 +54,7 @@ module.exports = {
                 submission.reply({content: "News Published :)", ephemeral: true });
             })
             .catch((error)=>{
-                console.log(error);
-                submission.reply({content: "Error occured :(", ephemeral: true});
+                submission.reply({content: error.message, ephemeral: true});
             })
             
         }
