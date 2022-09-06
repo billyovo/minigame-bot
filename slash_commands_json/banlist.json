@@ -4,6 +4,9 @@
 		"zh-TW": "禁賽名單"
 	},
 	"description": "check the event ban list",
+	"description_localizations":{
+		"zh-TW": "查看禁賽名單"
+	},
 	"options": [
 		{
 			"name": "server",

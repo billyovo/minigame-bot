@@ -25,5 +25,5 @@ jobs:
       - name: Register All Changed Commands
         run: |
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
-            curl -X POST -H "Content-Type: application/json" -H "Authorization: Bot ${{ secrets.BOT_TOKEN }}" -d $file ${{ secrets.SLASH_COMMAND_API_LINK }}
+            curl -X POST -H "Content-Type: application/json" -H "Authorization: Bot ${{ secrets.BOT_TOKEN }}" -d @$file ${{ secrets.SLASH_COMMAND_API_LINK }}
           done
