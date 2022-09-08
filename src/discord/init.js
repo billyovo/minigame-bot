@@ -32,18 +32,22 @@ async function updateScheduledEvents(){
 function setEventSchedule(event, server){
     const serverName = serverParamsToChinese(server);
     let eventTime = serverName === "生存" ? event.date.plus({hours: 1}) : event.date;
-    annoucementChannel.guild.scheduledEvents.create({ 
-        name: event.emote +" "+event.title,
-        scheduledStartTime: eventTime.toMillis(),
-        scheduledEndTime: eventTime.plus({minutes: 30}).toMillis(),
-        image: path.resolve(__dirname, `../../editables/images/${event.id}_${server}.png`),
-        privacyLevel: 2,
-        entityType: GuildScheduledEventEntityType.External,
-        description: eventScheduleMessage(serverName),
-        entityMetadata:{
-            location: serverName+"小遊戲伺服器"
-        }
-    });
+    try{
+        annoucementChannel.guild.scheduledEvents.create({ 
+            name: event.emote +" "+event.title,
+            scheduledStartTime: eventTime.toMillis(),
+            scheduledEndTime: eventTime.plus({minutes: 30}).toMillis(),
+            image: path.resolve(__dirname, `../../editables/images/${event.id}_${server}.png`),
+            privacyLevel: 2,
+            entityType: GuildScheduledEventEntityType.External,
+            description: eventScheduleMessage(serverName),
+            entityMetadata:{
+                location: serverName+"小遊戲伺服器"
+            }
+        });
+    }
+    catch{}
+    
 }
 
 async function getDiscordScheduledEvents(){

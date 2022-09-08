@@ -19,8 +19,8 @@ var todayMessageSkyblock = new CronJob('40 20 * * *', async function() {
 	getAnnoucementChannel().send(eventMessages.eventStart(todayEvent.emote,todayEvent.title,"21:00",config.skyblockID));
     const events = await getDiscordScheduledEvents();
     const currentEvent = events.at(0);
-    currentEvent.edit({name: currentEvent.name + " - 21:00正式開始"});
-    currentEvent.setStatus(GuildScheduledEventStatus.Active);
+    currentEvent?.edit({name: currentEvent.name + " - 21:00正式開始"});
+    currentEvent?.setStatus(GuildScheduledEventStatus.Active);
 }, null, true, 'Asia/Taipei');
 todayMessageSkyblock.start();
 
@@ -30,8 +30,8 @@ var todayMessageSurvival = new CronJob('40 21 * * *', async function() {
 	getAnnoucementChannel().send(eventMessages.eventStart(todayEvent.emote,todayEvent.title,"22:00",config.survivalID));
     const events = await getDiscordScheduledEvents();
     const currentEvent = events.at(0);
-    currentEvent.edit({name: currentEvent.name + " - 22:00正式開始"});
-    currentEvent.setStatus(GuildScheduledEventStatus.Active);
+    currentEvent?.edit({name: currentEvent.name + " - 22:00正式開始"});
+    currentEvent?.setStatus(GuildScheduledEventStatus.Active);
 }, null, true, 'Asia/Taipei');
 todayMessageSurvival.start();
 
