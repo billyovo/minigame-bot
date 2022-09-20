@@ -8,7 +8,7 @@ let {getEventSchedule, updateSchedule} = require("../utility/checkEvents.js");
 var tomorrowMessage = new CronJob('0 17 * * *', function() {
     if(!Object.prototype.hasOwnProperty.call(getEventSchedule(), "tomorrow")){return;}
     const tomorrowEvent = getEventSchedule()[getEventSchedule().tomorrow];
-	getAnnoucementChannel().send({content: `<@&${config.skyblockID}> <@&${config.survivalID}>`, embeds: [eventMessages.eventTomorrow(tomorrowEvent.emote,tomorrowEvent.title,bot.user.avatarURL())]});
+	getAnnoucementChannel().send({content: `<@&${config.skyblockID}> <@&${config.survivalID}>`, embeds: [eventMessages.eventTomorrow(tomorrowEvent.imageurl,tomorrowEvent.title,bot.user.avatarURL())]});
 }, null, true, 'Asia/Taipei');
 tomorrowMessage.start();
 

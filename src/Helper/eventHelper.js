@@ -10,6 +10,10 @@ module.exports= {
         let result = events.find(event => event.id == id);
         return result ? result.title : "";
     },
+    getImageURLByID: function(id){
+        let result = events.find(event => event.id == id);
+        return result ? result.imageurl : "";
+    },
     serverParamsToDBName: function(params){
         return serverArgs.includes(params.toLowerCase()) ? "survival" : "skyblock";
     },

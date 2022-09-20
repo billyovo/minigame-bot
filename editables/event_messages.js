@@ -1,17 +1,19 @@
 var { DateTime } = require('luxon');
-const {EmbedBuilder} = require('discord.js');
+const {EmbedBuilder, AttachmentBuilder} = require('discord.js');
 const config = require('./config.json');
-
+const path = require('path');
 module.exports= {
     eventTomorrow: function(emote,name,avatar, skyblockTime = '21:00', survivalTime = '22:00'){
         let skyblockDate = DateTime.fromFormat(skyblockTime,"hh:mm").plus({days: 1});
         let survivalDate = DateTime.fromFormat(survivalTime,"hh:mm").plus({days: 1});
+        
         let embed = new EmbedBuilder()
         .setColor('#ee831b')
 		.setTitle('活動提示')
  //       .setURL('https://billyovo.github.io/event-calendar')
+        .setThumbnail('https://minigame.letsdream.today'+emote.slice(0,-3)+"png")
         .addFields(
-        { name: '\u200B', value: `${emote} 小遊戲 **${name}** 將於 **明天(<t:${parseInt(skyblockDate.toSeconds())}:d>)** 舉行 ${emote}`},
+        { name: '\u200B', value: `小遊戲 **${name}** 將於 **明天(<t:${parseInt(skyblockDate.toSeconds())}:d>)** 舉行`},
       //  { name: '\u200B', value: `${emote} 小遊戲 **${name}** 將於 **明天(<t:${date.toSeconds()}:R>)** 進行 ${emote}`},
         { name: '\u200B', value: '__時間__:'},
 		{ name: `<:cobblestone:833225746020696075> 空島`, value: `<t:${parseInt(skyblockDate.toSeconds())}:t>`, inline: true },
