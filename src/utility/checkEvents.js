@@ -32,7 +32,8 @@ function updateEvents(){
             title: event.title,
             id: event.id,
             date: eventDate,
-            emote: event.emote
+            emote: event.emote,
+            imageurl: event.imageurl
         }
 
         //search for nearest
