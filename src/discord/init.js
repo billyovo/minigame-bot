@@ -24,8 +24,11 @@ async function updateScheduledEvents(){
     const schedule = await getDiscordScheduledEvents();
     if(schedule.size === 0){
         const nearestID = getEventSchedule().nearest;
-        setEventSchedule(getEventSchedule()[nearestID], "skyblock");
-        setEventSchedule(getEventSchedule()[nearestID], "survival");
+        const nearestEvent = getEventSchedule()[nearestID];
+
+        if(nearestEvent.date < new Date()) return;
+        setEventSchedule(nearestEvent, "skyblock");
+        setEventSchedule(nearestEvent, "survival");
     }
 }
 
