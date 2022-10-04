@@ -37,7 +37,7 @@ module.exports= {
         const timeObj = DateTime.fromFormat(time, 'HH:mm');
 
         return `<@&${roleID}>
-${emote} 小遊戲 ${name} 將於 <t:${timeObj.toMillis()}:t> 開始 ${emote}
+${emote} 小遊戲 ${name} 將於 <t:${timeObj.toSeconds()}:t> 開始 ${emote}
 有意參加的玩家可以按spawn左邊的魔法使, 往右走就能找到傳送告示牌了
 :warning: 小遊戲會在小遊戲伺服器舉行, 建議提早3分鐘起行以免錯過開始時間
 :warning: 請在背包預留至少5格空位以便回來時領取參加獎
