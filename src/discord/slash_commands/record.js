@@ -16,7 +16,7 @@ module.exports = {
                     const embed = new EmbedBuilder()
                         .setColor('#ee831b')
                         .setTitle(name)
-                        .setDescription(server === 'all' ? "合共紀錄" : serverParamsToChinese(server)+"服")
+                        .setDescription(server === 'all' ? "全部伺服器" : serverParamsToChinese(server)+"服")
                         .setThumbnail('https://crafatar.com/avatars/'+result[0][0].uuid+"?overlay")
                         .addFields({
                             name: "勝利次數", 

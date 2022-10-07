@@ -1,6 +1,6 @@
-const {Client, GatewayIntentBits, Partials, ActivityType, GuildScheduledEventEntityType} = require('discord.js');
+const {Client, GatewayIntentBits, ActivityType, GuildScheduledEventEntityType} = require('discord.js');
 const bot = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent]});
-const {getEventSchedule, updateSchedule} = require("../utility/checkEvents");
+const {getEventSchedule} = require("../utility/checkEvents");
 const {serverParamsToChinese} = require("../Helper/eventHelper");
 const config = require("../../editables/config.json");
 const {eventScheduleMessage} = require("../../editables/event_messages.js");
@@ -9,10 +9,12 @@ bot.login(process.env.TOKEN);
 let annoucementChannel = null;
 
 function updateDiscordStatus(){
-    console.log("Today's event:    "+ (Object.prototype.hasOwnProperty.call(getEventSchedule(), "today") ? getEventSchedule()[getEventSchedule().today].title : "none"));
-    console.log("Tomorrow's event: "+ (Object.prototype.hasOwnProperty.call(getEventSchedule(), "tomorrow") ? getEventSchedule()[getEventSchedule().tomorrow].title : "none"));
-    if(Object.prototype.hasOwnProperty.call(getEventSchedule(), "today")){
-        bot.user.setActivity("是日小遊戲: "+ getEventSchedule()[getEventSchedule().today].title, {type: ActivityType.Playing});
+    const eventSchedule = getEventSchedule();
+
+    console.log("Today's event:    "+ (eventSchedule.today ? geventSchedule.today.title : "none"));
+    console.log("Tomorrow's event: "+ (eventSchedule.tomorrow ? eventSchedule.tomorrow.title : "none"));
+    if(eventSchedule.today){
+        bot.user.setActivity("是日小遊戲: "+ eventSchedule.today.title, {type: ActivityType.Playing});
     }
     else{
         bot.user.setActivity("今天沒有小遊戲 :(", {type: ActivityType.Watching});
@@ -23,9 +25,7 @@ function updateDiscordStatus(){
 async function updateScheduledEvents(){
     const schedule = await getDiscordScheduledEvents();
     if(schedule.size === 0){
-        const nearestID = getEventSchedule().nearest;
-        const nearestEvent = getEventSchedule()[nearestID];
-
+        const nearestEvent = getEventSchedule().nearest;
         if(nearestEvent.date < new Date()) return;
         setEventSchedule(nearestEvent, "skyblock");
         setEventSchedule(nearestEvent, "survival");

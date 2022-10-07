@@ -1,23 +1,30 @@
 const rrule = require('rrule');
-var { DateTime } = require('luxon');
+const { DateTime } = require('luxon');
 const events = require('../../editables/event.json')
 
-var eventsDateMap = {};
+let eventsDateMap = updateEvents();
 
 module.exports = {
     getEventSchedule: function(){
         return eventsDateMap;
     },
-    updateSchedule: updateEvents
+    updateSchedule: function(){
+        eventsDateMap = updateEvents();
+    }
 };
 
 function updateEvents(){
-    eventsDateMap = {};
+    let eventsDateMap = {};
     const today = DateTime.now().startOf("day");
     const tomorrow = DateTime.now().plus({days: 1}).startOf("day");
 	console.log('================================================ '+today.toFormat('yyyy-LL-dd')+' ======================================================');
     const weekdays = ['一','二','三','四','五','六','日'];
 
+    let nearestEvent = null;
+    let nearestDate = null;
+
+    let hasToday = false;
+    let hasTomorrow = false;
 	events.forEach((event)=>{
         //fix rule, get time
         const fixedRule = 'DTSTART;TZID=Asia/Hong_Kong:'+today.toFormat('yyyyLLdd')+'T'+today.toFormat('HHmm00')+'\nRRULE:'+event.rrule;
@@ -37,22 +44,52 @@ function updateEvents(){
         }
 
         //search for nearest
-        if(!Object.prototype.hasOwnProperty.call(eventsDateMap, "nearest")){
-            eventsDateMap["nearest"] = event.id;
+        if(!nearestEvent || (nearestDate > eventDate)){
+            nearestEvent = event.id;
+            nearestDate = eventDate;
         }
-        else{
-            if(eventsDateMap[eventsDateMap.nearest].date> eventsDateMap[event.id].date){
-                eventsDateMap["nearest"] = event.id;
-            }
-        }
+        
     
         //search for today and tmr
     if(today.ordinal === eventDate.ordinal){
-        eventsDateMap["today"] = event.id;
+        hasToday = true;
+        Object.defineProperty(eventsDateMap, 'today',{
+            get: function(){
+                return eventsDateMap[event.id];
+            }
+        })
      }
     if(tomorrow.ordinal === eventDate.ordinal){
-        eventsDateMap["tomorrow"] = event.id;
+        hasTomorrow = true;
+        Object.defineProperty(eventsDateMap, 'tomorrow',{
+            get: function(){
+                return eventsDateMap[event.id];
+            }
+        })
      }
 	})
+
+
+    if(!hasToday){
+        Object.defineProperty(eventsDateMap, 'today',{
+            get: function(){
+                return null;
+            }
+        })
+    }
+    if(!hasTomorrow){
+        Object.defineProperty(eventsDateMap, 'tomorrow',{
+            get: function(){
+                return null;
+            }
+        })
+    }
+    Object.defineProperty(eventsDateMap, 'nearest',{
+        get: function(){
+            return eventsDateMap[nearestEvent];
+        }
+    })
+    
 	console.log('==================================================================================================================');
+    return eventsDateMap;
 }
