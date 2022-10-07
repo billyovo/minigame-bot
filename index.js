@@ -32,7 +32,6 @@ function loadCommands(){
     }
 }
 
-updateSchedule();
 loadCommands();
 
 bot.on('messageCreate',async (msg) => {
