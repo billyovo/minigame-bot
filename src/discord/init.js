@@ -11,7 +11,7 @@ let annoucementChannel = null;
 function updateDiscordStatus(){
     const eventSchedule = getEventSchedule();
 
-    console.log("Today's event:    "+ (eventSchedule.today ? geventSchedule.today.title : "none"));
+    console.log("Today's event:    "+ (eventSchedule.today ? eventSchedule.today.title : "none"));
     console.log("Tomorrow's event: "+ (eventSchedule.tomorrow ? eventSchedule.tomorrow.title : "none"));
     if(eventSchedule.today){
         bot.user.setActivity("是日小遊戲: "+ eventSchedule.today.title, {type: ActivityType.Playing});
