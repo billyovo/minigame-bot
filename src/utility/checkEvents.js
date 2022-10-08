@@ -23,8 +23,6 @@ function updateEvents(){
     let nearestEvent = null;
     let nearestDate = null;
 
-    let hasToday = false;
-    let hasTomorrow = false;
 	events.forEach((event)=>{
         //fix rule, get time
         const fixedRule = 'DTSTART;TZID=Asia/Hong_Kong:'+today.toFormat('yyyyLLdd')+'T'+today.toFormat('HHmm00')+'\nRRULE:'+event.rrule;
@@ -52,7 +50,6 @@ function updateEvents(){
     
         //search for today and tmr
     if(today.ordinal === eventDate.ordinal){
-        hasToday = true;
         Object.defineProperty(eventsDateMap, 'today',{
             get: function(){
                 return eventsDateMap[event.id];
@@ -60,7 +57,6 @@ function updateEvents(){
         })
      }
     if(tomorrow.ordinal === eventDate.ordinal){
-        hasTomorrow = true;
         Object.defineProperty(eventsDateMap, 'tomorrow',{
             get: function(){
                 return eventsDateMap[event.id];
@@ -69,21 +65,6 @@ function updateEvents(){
      }
 	})
 
-
-    if(!hasToday){
-        Object.defineProperty(eventsDateMap, 'today',{
-            get: function(){
-                return null;
-            }
-        })
-    }
-    if(!hasTomorrow){
-        Object.defineProperty(eventsDateMap, 'tomorrow',{
-            get: function(){
-                return null;
-            }
-        })
-    }
     Object.defineProperty(eventsDateMap, 'nearest',{
         get: function(){
             return eventsDateMap[nearestEvent];
