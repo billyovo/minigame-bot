@@ -19,6 +19,6 @@
   "author": "billyovo",
   "license": "ISC",
   "devDependencies": {
-    "eslint": "^8.1.0"
+    "eslint": "^8.26.0"
   }
 }
