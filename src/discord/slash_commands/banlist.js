@@ -13,7 +13,7 @@ module.exports = {
             .then((data)=>{          	
                 data.forEach((record)=>{
                     embed.addFields(
-						{ name: getEmoteByName(record.event) +" "+record.event, value: record.name},
+						{ name: getEmoteByName(record.event) +" "+record.event, value: record.name, inline: true},
                     );
                 })
                 interaction.reply({embeds: [embed]});
