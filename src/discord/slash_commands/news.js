@@ -47,7 +47,7 @@ module.exports = {
             }
             const newRecord = {
                 title: title,
-                content: content.split("\n\n").map(paragraph => return `<p>${paragraph}</p>`).join(""),
+                content: content.split("\n\n").map(paragraph => `<p>${paragraph}</p>`).join(""),
                 publish_date: new Date(message.createdTimestamp).toISOString().substring(0,10),
                 image: images
             }
