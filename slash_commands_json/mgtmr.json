@@ -1,0 +1,52 @@
+{
+	"name": "mgtmr",
+	"description": "手動公告明天的小遊戲時間!!!",
+	"options": [
+		{
+			"name": "name",
+			"description": "活動名稱",
+			"type": 3,
+			"required": true,
+			"choices": [
+				{
+					"name": "碰碰豬",
+					"value": "bumper"
+				},
+				{
+					"name": "忘掉那 無形鎖",
+					"value": "cannon"
+				},
+				{
+					"name": "繽紛飛天蛇",
+					"value": "snake"
+				},
+				{
+					"name": "七彩羊駝保衛戰",
+					"value": "boat"
+				},
+				{
+					"name": "高空墜落",
+					"value": "drop"
+				},
+				{
+					"name": "記憶極限",
+					"value": "match"
+				}
+				
+			]
+		},
+
+		{
+			"name": "survival_time",
+			"description": "生存開始時間",
+			"type": 3,
+			"required": false
+		},
+		{
+			"name": "skyblock_time",
+			"description": "空島開始時間",
+			"type": 3,
+			"required": false
+		}
+	]
+}

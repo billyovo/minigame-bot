@@ -1,0 +1,10 @@
+{
+    "survival":{
+        "tomorrowMessage": true,
+        "todayMessage": true
+    },
+    "skyblock":{
+        "tomorrowMessage": true,
+        "todayMessage": true
+    }
+}
