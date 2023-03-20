@@ -27,7 +27,7 @@ module.exports = {
                                 .setValue(messageContent);
         const dateField = new TextInputBuilder()
                             .setCustomId("date")
-                            .setLabel("Date (Future dates will not be shown yet in news)")
+                            .setLabel("Publish Date")
                             .setStyle(TextInputStyle.Short)
                             .setRequired(true)
                             .setPlaceholder("Date")
