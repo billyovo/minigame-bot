@@ -25,11 +25,17 @@ module.exports = {
                                 .setRequired(true)
                                 .setPlaceholder("content")
                                 .setValue(messageContent);
-
+        const dateField = new TextInputBuilder()
+                            .setCustomId("date")
+                            .setLabel("Date (Future dates will not be shown yet in news)")
+                            .setStyle(TextInputStyle.Short)
+                            .setRequired(true)
+                            .setPlaceholder("Date")
+                            .setValue(new Date(message.createdTimestamp).toISOString().substring(0,10));
         const firstActionRow = new ActionRowBuilder().addComponents(modalTitle);
         const secondActionRow = new ActionRowBuilder().addComponents(modalContent);
-                            
-        modal.addComponents(firstActionRow, secondActionRow);
+        const thirdActionRow = new ActionRowBuilder().addComponents(dateField);
+        modal.addComponents(firstActionRow, secondActionRow, thirdActionRow);
         
         await interaction.showModal(modal);
         const submission = await interaction.awaitModalSubmit({
@@ -39,7 +45,7 @@ module.exports = {
 
         const title = submission.fields.getTextInputValue('title');
         const content = submission.fields.getTextInputValue('content')
-        
+        const publish_date = submission.fields.getTextInputValue('date');
         if(submission){
             let images = [];
             for(let i = 0;i<message.attachments.size;i++){
@@ -48,7 +54,7 @@ module.exports = {
             const newRecord = {
                 title: title,
                 content: content.split("\n\n").map(paragraph => `<p>${paragraph}</p>`).join(""),
-                publish_date: new Date(message.createdTimestamp).toISOString().substring(0,10),
+                publish_date: publish_date,
                 image: images
             }
            	news.insertOne(newRecord)
