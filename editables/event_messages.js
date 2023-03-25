@@ -10,17 +10,15 @@ module.exports= {
         let embed = new EmbedBuilder()
         .setColor('#ee831b')
 		.setTitle('活動提示')
- //       .setURL('https://billyovo.github.io/event-calendar')
+        .setURL('https://minigame.letsdream.today/')
         .setThumbnail('https://minigame.letsdream.today'+emote.slice(0,-3)+"png")
         .addFields(
         { name: '\u200B', value: `小遊戲 **${name}** 將於 **明天(<t:${parseInt(skyblockDate.toSeconds())}:d>)** 舉行`},
-      //  { name: '\u200B', value: `${emote} 小遊戲 **${name}** 將於 **明天(<t:${date.toSeconds()}:R>)** 進行 ${emote}`},
         { name: '\u200B', value: '__時間__:'},
 		{ name: `<:cobblestone:833225746020696075> 空島`, value: `<t:${parseInt(skyblockDate.toSeconds())}:t>`, inline: true },
 		{ name: `<:grassblock:833226098020057088> 生存`, value: `<t:${parseInt(survivalDate.toSeconds())}:t>`, inline: true },
         )
-//        .setFooter('點擊標題獲取更多資訊',avatar)
-        .setFooter({text: '更多資訊準備中~', iconURL: avatar})
+        .setFooter({text: '點擊標題獲取更多資訊', iconURL: avatar})
 	
         return embed;   
     },  
@@ -45,6 +43,7 @@ ${emote} 小遊戲 ${name} 將於 <t:${timeObj.toSeconds()}:t> 開始 ${emote}
     },
     
     eventWinner: function(server,game, name){
+        server = server === 'survival'? '生存': '空島';
         return `${DateTime.now().toFormat('LL 月 dd 日')}
 ${server}服: ${game} - `+ "`"+name+"`"+" , 禁賽一次";
     },
@@ -65,7 +64,7 @@ ${server}服: ${game} - `+ "無人獲勝";
 		{ name: `<:close:936717091120246895> 關閉重置時間`, value: `<t:${parseInt(resetDate.toSeconds())}:t>`, inline: true },
 		{ name: `<:open:936717091011170395> 重新開放時間`, value: `<t:${parseInt(openDate.toSeconds())}:t>`, inline: true },
         )
-        .setFooter({text: '更多資訊準備中~', iconURL: avatar})
+        .setFooter({text: '點擊標題獲取更多資訊', iconURL: avatar})
         return embed;   
     },
     eventMazeToday: function(nextResetTime = '13:30'){
