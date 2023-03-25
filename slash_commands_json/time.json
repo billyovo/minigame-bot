@@ -1,0 +1,51 @@
+{
+	"name": "time",
+	"name_localizations": {
+		"zh-TW": "查詢活動時間"
+	},
+	"description": "Show a event time",
+	"description_localizations": {
+		"zh-TW": "顯示某個活動的開始時間"
+	},
+	"options": [
+		{
+			"name": "name",
+			"name_localizations": {
+				"zh-TW": "活動名稱"
+			},
+			"description": "Input event time",
+			"description_localizations": {
+				"zh-TW": "輸入活動名稱"
+			},
+			"type": 3,
+			"required": true,
+			"choices": [
+				{
+					"name": "碰碰豬",
+					"value": "bumper"
+				},
+				{
+					"name": "忘掉那 無形鎖",
+					"value": "cannon"
+				},
+				{
+					"name": "繽紛飛天蛇",
+					"value": "snake"
+				},
+				{
+					"name": "七彩羊駝保衛戰",
+					"value": "boat"
+				},
+				{
+					"name": "高空墜落",
+					"value": "drop"
+				},
+				{
+					"name": "記憶極限",
+					"value": "match"
+				}
+				
+			]
+		}
+	]
+}
