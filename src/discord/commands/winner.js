@@ -22,7 +22,7 @@ async function findUUID(name){
 }
 module.exports = {
     run: async function(bot,msg,params){
-            const server = serverParamsToChinese(params.shift());
+            const server = params.shift();
             const name = params.shift();
             const game = params.length === 0 ? getEventSchedule().today?.title : params.join(' ');
          
