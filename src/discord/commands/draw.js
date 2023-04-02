@@ -6,7 +6,7 @@ const {getEventSchedule} = require("../../utility/checkEvents.js");
 
 module.exports = {
     run: async function(bot,msg,params){
-        const server = serverParamsToChinese(params.shift());
+        const server = params.shift();
         const game = params.length === 0 ? getEventSchedule().today?.title : params.join(' ');
        
         await database.insertOne({
