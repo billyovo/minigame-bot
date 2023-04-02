@@ -43,12 +43,10 @@ ${emote} 小遊戲 ${name} 將於 <t:${timeObj.toSeconds()}:t> 開始 ${emote}
     },
     
     eventWinner: function(server,game, name){
-        server = ((server === 'survival') || (server === 'sur')) ? '生存': '空島';
         return `${DateTime.now().toFormat('LL 月 dd 日')}
 ${server}服: ${game} - `+ "`"+name+"`"+" , 禁賽一次";
     },
      eventDraw: function(server,game){
-        server = ((server === 'survival') || (server === 'sur')) ? '生存': '空島';
         return `${DateTime.now().toFormat('LL 月 dd 日')}
 ${server}服: ${game} - `+ "無人獲勝";
     },
